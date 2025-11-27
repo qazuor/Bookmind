@@ -12,7 +12,7 @@ export default defineConfig({
       "tests/**/*.{test,spec}.{ts,tsx}",
       "src/**/*.{test,spec}.{ts,tsx}",
     ],
-    exclude: ["node_modules", "dist", ".claude"],
+    exclude: ["node_modules", "dist", ".claude", "tests/e2e/**"],
     coverage: {
       provider: "v8",
       reporter: ["text", "html", "lcov"],
