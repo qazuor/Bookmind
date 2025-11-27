@@ -49,6 +49,7 @@
     "@t3-oss/env-core": "^0.13.8",
     "@tanstack/react-form": "^1.26.0",
     "@tanstack/react-query": "^5.90.11",
+    "@tanstack/zod-form-adapter": "^0.42.1",
     "@upstash/ratelimit": "^2.0.7",
     "@upstash/redis": "^1.35.7",
     "better-auth": "^1.4.3",
