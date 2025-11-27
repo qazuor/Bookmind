@@ -67,6 +67,16 @@
           }
         }
       }
+    },
+    {
+      "includes": ["**/ai/client.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useNamingConvention": "off"
+          }
+        }
+      }
     }
   ],
   "formatter": {
