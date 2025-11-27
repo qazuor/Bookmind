@@ -12,7 +12,7 @@ import { SocialButtons } from "@/components/auth/SocialButtons";
 const mockSignInWithGoogle = vi.fn();
 const mockSignInWithGithub = vi.fn();
 
-vi.mock("@/hooks/useAuth", () => ({
+vi.mock("@/hooks/use-auth", () => ({
   useAuth: () => ({
     signInWithGoogle: mockSignInWithGoogle,
     signInWithGithub: mockSignInWithGithub,

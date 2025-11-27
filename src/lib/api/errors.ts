@@ -207,6 +207,7 @@ export function handleError(error: unknown): ApiError {
   }
 
   if (error instanceof Error) {
+    // biome-ignore lint/suspicious/noConsole: Intentional error logging for API errors
     console.error("[API Error]", error);
     return new InternalError(
       process.env.NODE_ENV === "development"
@@ -215,6 +216,7 @@ export function handleError(error: unknown): ApiError {
     );
   }
 
+  // biome-ignore lint/suspicious/noConsole: Intentional error logging for unknown errors
   console.error("[API Error] Unknown error:", error);
   return new InternalError();
 }

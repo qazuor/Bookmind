@@ -21,6 +21,7 @@ function getRedis(): Redis | null {
   const token = process.env.UPSTASH_REDIS_REST_TOKEN;
 
   if (!(url && token)) {
+    // biome-ignore lint/suspicious/noConsole: Intentional warning for missing configuration
     console.warn(
       "[Rate Limit] Upstash Redis not configured, rate limiting disabled",
     );

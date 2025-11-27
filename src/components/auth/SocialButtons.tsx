@@ -7,7 +7,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/use-auth";
 
 interface SocialButtonsProps {
   mode: "signin" | "signup";

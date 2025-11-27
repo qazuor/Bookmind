@@ -83,12 +83,14 @@ export function withErrorHandler<TBody = unknown, TQuery = unknown>(
         };
 
         if (apiError.statusCode >= 500) {
+          // biome-ignore lint/suspicious/noConsole: Intentional error logging for API monitoring
           console.error(
             "[API Error]",
             logData,
             config.includeStack ? apiError.stack : "",
           );
         } else if (config.includeStack) {
+          // biome-ignore lint/suspicious/noConsole: Intentional warning logging for API debugging
           console.warn("[API Warning]", logData);
         }
       }
@@ -98,6 +100,7 @@ export function withErrorHandler<TBody = unknown, TQuery = unknown>(
         try {
           config.onError(apiError, req as ApiRequest);
         } catch (e) {
+          // biome-ignore lint/suspicious/noConsole: Intentional error logging for callback failures
           console.error("[Error Handler] onError callback failed:", e);
         }
       }
@@ -134,6 +137,7 @@ export function asyncHandler<TBody = unknown, TQuery = unknown>(
  */
 export function createGlobalErrorHandler() {
   return (error: unknown, _req: ApiRequest, res: VercelResponse): void => {
+    // biome-ignore lint/suspicious/noConsole: Intentional error logging for uncaught errors
     console.error("[Uncaught Error]", error);
 
     const apiError = handleError(error);

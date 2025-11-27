@@ -1,7 +1,6 @@
 import { createEnv } from "@t3-oss/env-core";
 import { z } from "zod";
 
-// biome-ignore lint/style/useNamingConvention: Environment variables use SCREAMING_SNAKE_CASE by convention
 export const env = createEnv({
   server: {
     // Database

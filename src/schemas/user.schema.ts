@@ -47,6 +47,14 @@ export const updateUserSchema = z.object({
   theme: userBase.theme,
 });
 
+// Update profile schema (same as update user but optional fields)
+export const updateProfileSchema = z.object({
+  name: userBase.name,
+  username: userBase.username,
+  bio: userBase.bio,
+  avatarUrl: userBase.avatarUrl.nullable(),
+});
+
 // User preferences schema
 export const userPreferencesSchema = z.object({
   language: userBase.language,
@@ -83,6 +91,7 @@ export const publicUserSchema = z.object({
 // Types inferred from schemas
 export type CreateUserInput = z.infer<typeof createUserSchema>;
 export type UpdateUserInput = z.infer<typeof updateUserSchema>;
+export type UpdateProfileInput = z.infer<typeof updateProfileSchema>;
 export type UserPreferences = z.infer<typeof userPreferencesSchema>;
 export type UserResponse = z.infer<typeof userResponseSchema>;
 export type PublicUser = z.infer<typeof publicUserSchema>;

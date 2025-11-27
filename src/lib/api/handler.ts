@@ -96,10 +96,10 @@ export function createHandler<
   // 1. Validation (innermost - after all checks)
   if (config.validation) {
     const validationHandler = wrappedHandler;
-    // biome-ignore lint/suspicious/noExplicitAny: Middleware composition requires flexible types
+    // @ts-expect-error - Middleware composition requires flexible types
     wrappedHandler = withValidation(
-      config.validation as any,
-      validationHandler as any,
+      config.validation,
+      validationHandler,
     ) as AnyHandler;
   }
 

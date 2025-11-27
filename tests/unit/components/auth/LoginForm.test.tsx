@@ -13,7 +13,7 @@ const mockSignInWithEmail = vi.fn();
 const mockSignInWithGoogle = vi.fn();
 const mockSignInWithGithub = vi.fn();
 
-vi.mock("@/hooks/useAuth", () => ({
+vi.mock("@/hooks/use-auth", () => ({
   useAuth: () => ({
     signInWithEmail: mockSignInWithEmail,
     signInWithGoogle: mockSignInWithGoogle,

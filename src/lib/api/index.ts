@@ -4,6 +4,15 @@
  * Main entry point for all API utilities.
  */
 
+// Auth
+export {
+  type AuthSession,
+  getSession,
+  getUserId,
+  withAuth,
+  withOptionalAuth,
+} from "./auth";
+
 // Errors
 export {
   ApiError,

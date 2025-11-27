@@ -109,6 +109,7 @@ export function withValidation<
       // Call the handler with validated data
       return handler(req as ApiRequest<z.infer<TBody>, z.infer<TQuery>>, res);
     } catch (error) {
+      // biome-ignore lint/suspicious/noConsole: Intentional error logging for debugging
       console.error("[Validation Middleware] Error:", error);
       throw error;
     }

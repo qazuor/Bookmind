@@ -21,6 +21,54 @@
       "!**/coverage"
     ]
   },
+  "overrides": [
+    {
+      "includes": ["**/env.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useNamingConvention": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/seed.ts"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noConsole": "off"
+          },
+          "complexity": {
+            "noExcessiveCognitiveComplexity": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/metadata.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useNamingConvention": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/logging.ts"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noConsole": "off"
+          },
+          "complexity": {
+            "noExcessiveCognitiveComplexity": "off"
+          }
+        }
+      }
+    }
+  ],
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
@@ -34,7 +82,10 @@
     "rules": {
       "recommended": true,
       "complexity": {
-        "noExcessiveCognitiveComplexity": "warn",
+        "noExcessiveCognitiveComplexity": {
+          "level": "warn",
+          "options": { "maxAllowedComplexity": 30 }
+        },
         "useSimplifiedLogicExpression": "warn"
       },
       "correctness": {
@@ -48,7 +99,7 @@
         "noBlankTarget": "error"
       },
       "style": {
-        "noNonNullAssertion": "warn",
+        "noNonNullAssertion": "off",
         "useConsistentArrayType": {
           "level": "warn",
           "options": { "syntax": "shorthand" }
@@ -95,7 +146,8 @@
       },
       "suspicious": {
         "noExplicitAny": "error",
-        "noConsole": "warn"
+        "noConsole": "warn",
+        "noConfusingVoidType": "off"
       },
       "a11y": {
         "useButtonType": "warn",

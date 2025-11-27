@@ -161,6 +161,7 @@ function logSuspiciousActivity(
     ...details,
   };
 
+  // biome-ignore lint/suspicious/noConsole: Intentional security logging for bot detection
   console.warn("[Bot Protection]", JSON.stringify(log));
 }
 

@@ -41,7 +41,9 @@ export const auth = betterAuth({
     // Password reset configuration
     sendResetPassword: async ({ user, url }) => {
       // For MVP: Log the reset URL (in production, send via email service)
+      // biome-ignore lint/suspicious/noConsole: Temporary MVP logging for password reset
       console.log(`[Auth] Password reset requested for ${user.email}`);
+      // biome-ignore lint/suspicious/noConsole: Temporary MVP logging for password reset
       console.log(`[Auth] Reset URL: ${url}`);
       // TODO: Implement email sending with Resend or similar service
       // await sendEmail({
