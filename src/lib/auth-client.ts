@@ -4,6 +4,7 @@
  * Client-side authentication methods for:
  * - Email/Password sign in/up
  * - Social sign in (Google, GitHub)
+ * - Password reset
  * - Session management
  */
 

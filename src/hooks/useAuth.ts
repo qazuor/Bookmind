@@ -27,6 +27,15 @@ interface SignInParams {
   rememberMe?: boolean;
 }
 
+interface ForgotPasswordParams {
+  email: string;
+}
+
+interface ResetPasswordParams {
+  token: string;
+  newPassword: string;
+}
+
 // Extract session data type from useSession
 type SessionData = ReturnType<typeof useSession>["data"];
 type UserData = NonNullable<SessionData>["user"];
@@ -45,6 +54,14 @@ interface UseAuthReturn {
   signInWithGoogle: (callbackURL?: string) => Promise<void>;
   signInWithGithub: (callbackURL?: string) => Promise<void>;
   logout: (redirectTo?: string) => Promise<void>;
+
+  // Password reset
+  requestPasswordReset: (
+    params: ForgotPasswordParams,
+  ) => Promise<{ error?: Error }>;
+  confirmPasswordReset: (
+    params: ResetPasswordParams,
+  ) => Promise<{ error?: Error }>;
 
   // Utilities
   refetch: () => void;
@@ -137,6 +154,76 @@ export function useAuth(): UseAuthReturn {
     [navigate],
   );
 
+  /**
+   * Request password reset email
+   */
+  const requestPasswordReset = useCallback(
+    async (params: ForgotPasswordParams) => {
+      try {
+        // Use type assertion as Better Auth types may not be fully exposed
+        const client = authClient as unknown as {
+          forgetPassword: (opts: {
+            email: string;
+            redirectTo: string;
+          }) => Promise<{ error?: { message: string } }>;
+        };
+
+        const { error } = await client.forgetPassword({
+          email: params.email,
+          redirectTo: "/reset-password",
+        });
+
+        if (error) {
+          return { error: new Error(error.message) };
+        }
+
+        return {};
+      } catch (err) {
+        return {
+          error:
+            err instanceof Error
+              ? err
+              : new Error("Password reset request failed"),
+        };
+      }
+    },
+    [],
+  );
+
+  /**
+   * Confirm password reset with token
+   */
+  const confirmPasswordReset = useCallback(
+    async (params: ResetPasswordParams) => {
+      try {
+        // Use type assertion as Better Auth types may not be fully exposed
+        const client = authClient as unknown as {
+          resetPassword: (opts: {
+            token: string;
+            newPassword: string;
+          }) => Promise<{ error?: { message: string } }>;
+        };
+
+        const { error } = await client.resetPassword({
+          token: params.token,
+          newPassword: params.newPassword,
+        });
+
+        if (error) {
+          return { error: new Error(error.message) };
+        }
+
+        return {};
+      } catch (err) {
+        return {
+          error:
+            err instanceof Error ? err : new Error("Password reset failed"),
+        };
+      }
+    },
+    [],
+  );
+
   return {
     user,
     session,
@@ -147,6 +234,8 @@ export function useAuth(): UseAuthReturn {
     signInWithGoogle,
     signInWithGithub,
     logout,
+    requestPasswordReset,
+    confirmPasswordReset,
     refetch,
   };
 }

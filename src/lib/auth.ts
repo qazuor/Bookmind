@@ -38,6 +38,18 @@ export const auth = betterAuth({
     autoSignIn: true,
     minPasswordLength: 8,
     maxPasswordLength: 128,
+    // Password reset configuration
+    sendResetPassword: async ({ user, url }) => {
+      // For MVP: Log the reset URL (in production, send via email service)
+      console.log(`[Auth] Password reset requested for ${user.email}`);
+      console.log(`[Auth] Reset URL: ${url}`);
+      // TODO: Implement email sending with Resend or similar service
+      // await sendEmail({
+      //   to: user.email,
+      //   subject: "Reset your BookMind password",
+      //   html: `Click here to reset your password: <a href="${url}">${url}</a>`
+      // });
+    },
   },
 
   // Social providers
