@@ -30,6 +30,7 @@ yarn-error.log*
 # Testing
 coverage
 .vitest
+html/
 
 # Playwright
 playwright-report
