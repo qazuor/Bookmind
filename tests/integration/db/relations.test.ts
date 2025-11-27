@@ -9,7 +9,6 @@ import {
   sessionsRelations,
   tagsRelations,
   usersRelations,
-  verificationTokensRelations,
 } from "@/lib/db/schema";
 
 describe("Database Relations", () => {
@@ -41,16 +40,6 @@ describe("Database Relations", () => {
 
     it("should have user relation defined", () => {
       expect(typeof sessionsRelations).toBe("object");
-    });
-  });
-
-  describe("verificationTokensRelations", () => {
-    it("should be defined", () => {
-      expect(verificationTokensRelations).toBeDefined();
-    });
-
-    it("should have user relation defined", () => {
-      expect(typeof verificationTokensRelations).toBe("object");
     });
   });
 
@@ -117,12 +106,11 @@ describe("Database Relations", () => {
 });
 
 describe("Relations Count", () => {
-  it("should export 10 relation definitions", () => {
+  it("should export 9 relation definitions", () => {
     const relations = [
       usersRelations,
       accountsRelations,
       sessionsRelations,
-      verificationTokensRelations,
       categoriesRelations,
       collectionsRelations,
       tagsRelations,
@@ -131,7 +119,7 @@ describe("Relations Count", () => {
       bookmarkCollectionsRelations,
     ];
 
-    expect(relations.length).toBe(10);
+    expect(relations.length).toBe(9);
     expect(relations.every((r) => r !== undefined)).toBe(true);
   });
 });

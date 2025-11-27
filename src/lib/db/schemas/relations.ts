@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { accounts, sessions, verificationTokens } from "./auth";
+import { accounts, sessions } from "./auth";
 import { bookmarkCollections, bookmarks, bookmarkTags } from "./bookmarks";
 import { categories } from "./categories";
 import { collections } from "./collections";
@@ -10,7 +10,6 @@ import { users } from "./users";
 export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
   sessions: many(sessions),
-  verificationTokens: many(verificationTokens),
   categories: many(categories),
   collections: many(collections),
   tags: many(tags),
@@ -32,17 +31,6 @@ export const sessionsRelations = relations(sessions, ({ one }) => ({
     references: [users.id],
   }),
 }));
-
-// Verification token relations
-export const verificationTokensRelations = relations(
-  verificationTokens,
-  ({ one }) => ({
-    user: one(users, {
-      fields: [verificationTokens.userId],
-      references: [users.id],
-    }),
-  }),
-);
 
 // Category relations
 export const categoriesRelations = relations(categories, ({ one, many }) => ({

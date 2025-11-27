@@ -7,7 +7,7 @@ services:
     container_name: bookmind-postgres
     restart: unless-stopped
     ports:
-      - "5432:5432"
+      - "5440:5432"
     environment:
       POSTGRES_USER: bookmind
       POSTGRES_PASSWORD: bookmind_dev

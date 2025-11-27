@@ -39,7 +39,6 @@ export {
   sessionsRelations,
   tagsRelations,
   usersRelations,
-  verificationTokensRelations,
 } from "./relations";
 export { type NewTag, type Tag, tags } from "./tags";
 export { type NewUser, type User, users } from "./users";

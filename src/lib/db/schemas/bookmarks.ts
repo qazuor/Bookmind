@@ -17,7 +17,7 @@ export const bookmarks = pgTable(
   "bookmarks",
   {
     id: uuid("id").primaryKey().defaultRandom(),
-    userId: uuid("user_id")
+    userId: text("user_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     // Core fields

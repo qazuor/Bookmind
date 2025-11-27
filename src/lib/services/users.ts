@@ -75,7 +75,7 @@ export async function updateUserProfile(
   }
 
   if (input.avatarUrl !== undefined) {
-    updateData.avatarUrl = input.avatarUrl;
+    updateData.image = input.avatarUrl;
   }
 
   const result = await db
@@ -142,7 +142,7 @@ export async function getPublicUserProfile(username: string): Promise<{
   username: string;
   name: string | null;
   bio: string | null;
-  avatarUrl: string | null;
+  image: string | null;
   createdAt: Date;
 } | null> {
   const result = await db
@@ -150,7 +150,7 @@ export async function getPublicUserProfile(username: string): Promise<{
       username: users.username,
       name: users.name,
       bio: users.bio,
-      avatarUrl: users.avatarUrl,
+      image: users.image,
       createdAt: users.createdAt,
     })
     .from(users)
@@ -165,7 +165,7 @@ export async function getPublicUserProfile(username: string): Promise<{
     username: result[0].username,
     name: result[0].name,
     bio: result[0].bio,
-    avatarUrl: result[0].avatarUrl,
+    image: result[0].image,
     createdAt: result[0].createdAt,
   };
 }

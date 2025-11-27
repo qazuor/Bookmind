@@ -29,7 +29,7 @@ describe("Database Schema Structure", () => {
       expect(columnNames).toContain("name");
       expect(columnNames).toContain("username");
       expect(columnNames).toContain("bio");
-      expect(columnNames).toContain("avatarUrl");
+      expect(columnNames).toContain("image");
       expect(columnNames).toContain("language");
       expect(columnNames).toContain("theme");
       expect(columnNames).toContain("defaultVisibility");
@@ -58,7 +58,7 @@ describe("Database Schema Structure", () => {
       expect(columns.name.notNull).toBe(false);
       expect(columns.username.notNull).toBe(false);
       expect(columns.bio.notNull).toBe(false);
-      expect(columns.avatarUrl.notNull).toBe(false);
+      expect(columns.image.notNull).toBe(false);
     });
 
     it("should have correct default values", () => {
@@ -82,14 +82,15 @@ describe("Database Schema Structure", () => {
 
       expect(columnNames).toContain("id");
       expect(columnNames).toContain("userId");
-      expect(columnNames).toContain("provider");
-      expect(columnNames).toContain("providerAccountId");
+      expect(columnNames).toContain("providerId");
+      expect(columnNames).toContain("accountId");
       expect(columnNames).toContain("accessToken");
       expect(columnNames).toContain("refreshToken");
-      expect(columnNames).toContain("expiresAt");
-      expect(columnNames).toContain("tokenType");
+      expect(columnNames).toContain("accessTokenExpiresAt");
+      expect(columnNames).toContain("refreshTokenExpiresAt");
       expect(columnNames).toContain("scope");
       expect(columnNames).toContain("idToken");
+      expect(columnNames).toContain("password");
     });
 
     it("should have foreign key to users", () => {
@@ -133,10 +134,11 @@ describe("Database Schema Structure", () => {
       const columnNames = Object.keys(columns);
 
       expect(columnNames).toContain("id");
-      expect(columnNames).toContain("userId");
-      expect(columnNames).toContain("token");
-      expect(columnNames).toContain("type");
+      expect(columnNames).toContain("identifier");
+      expect(columnNames).toContain("value");
       expect(columnNames).toContain("expiresAt");
+      expect(columnNames).toContain("createdAt");
+      expect(columnNames).toContain("updatedAt");
     });
   });
 
@@ -334,9 +336,9 @@ describe("Column Count Validation", () => {
     expect(Object.keys(columns).length).toBe(13);
   });
 
-  it("accounts table should have 12 columns", () => {
+  it("accounts table should have 13 columns", () => {
     const columns = getTableColumns(accounts);
-    expect(Object.keys(columns).length).toBe(12);
+    expect(Object.keys(columns).length).toBe(13);
   });
 
   it("sessions table should have 8 columns", () => {

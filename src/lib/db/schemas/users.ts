@@ -1,22 +1,17 @@
-import {
-  boolean,
-  index,
-  pgTable,
-  text,
-  timestamp,
-  uuid,
-} from "drizzle-orm/pg-core";
+import { boolean, index, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
+// Users table - Better Auth compatible
 export const users = pgTable(
   "users",
   {
-    id: uuid("id").primaryKey().defaultRandom(),
+    id: text("id").primaryKey(), // Better Auth generates string IDs
     email: text("email").notNull().unique(),
     emailVerified: boolean("email_verified").notNull().default(false),
     name: text("name"),
+    image: text("image"), // Better Auth uses 'image' not 'avatarUrl'
+    // Custom fields (not from Better Auth)
     username: text("username").unique(),
     bio: text("bio"),
-    avatarUrl: text("avatar_url"),
     // Preferences
     language: text("language").notNull().default("en"),
     theme: text("theme").notNull().default("system"),

@@ -392,7 +392,7 @@ export async function unshareCollection(
  */
 export async function getSharedCollection(shareToken: string): Promise<{
   collection: Collection;
-  owner: { username: string; name: string | null; avatarUrl: string | null };
+  owner: { username: string; name: string | null; image: string | null };
   bookmarkCount: number;
 } | null> {
   const result = await db
@@ -400,7 +400,7 @@ export async function getSharedCollection(shareToken: string): Promise<{
       collection: collections,
       ownerUsername: users.username,
       ownerName: users.name,
-      ownerAvatarUrl: users.avatarUrl,
+      ownerImage: users.image,
       bookmarkCount: count(bookmarkCollections.bookmarkId),
     })
     .from(collections)
@@ -422,13 +422,8 @@ export async function getSharedCollection(shareToken: string): Promise<{
     return null;
   }
 
-  const {
-    collection,
-    ownerUsername,
-    ownerName,
-    ownerAvatarUrl,
-    bookmarkCount,
-  } = result[0];
+  const { collection, ownerUsername, ownerName, ownerImage, bookmarkCount } =
+    result[0];
 
   // Check if share has expired
   if (collection.shareExpiresAt && collection.shareExpiresAt < new Date()) {
@@ -440,7 +435,7 @@ export async function getSharedCollection(shareToken: string): Promise<{
     owner: {
       username: ownerUsername ?? "anonymous",
       name: ownerName,
-      avatarUrl: ownerAvatarUrl,
+      image: ownerImage,
     },
     bookmarkCount: Number(bookmarkCount),
   };

@@ -1,22 +1,27 @@
-import { index, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { index, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { users } from "./users";
 
-// OAuth accounts (Google, GitHub, etc.)
+// OAuth accounts (Google, GitHub, etc.) - Better Auth compatible
 export const accounts = pgTable(
   "accounts",
   {
-    id: uuid("id").primaryKey().defaultRandom(),
-    userId: uuid("user_id")
+    id: text("id").primaryKey(), // Better Auth generates string IDs
+    userId: text("user_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
-    provider: text("provider").notNull(), // "google", "github", "email"
-    providerAccountId: text("provider_account_id").notNull(),
+    providerId: text("provider_id").notNull(), // "google", "github", "credential"
+    accountId: text("account_id").notNull(), // Provider's account ID
     accessToken: text("access_token"),
     refreshToken: text("refresh_token"),
-    expiresAt: timestamp("expires_at", { withTimezone: true }),
-    tokenType: text("token_type"),
+    accessTokenExpiresAt: timestamp("access_token_expires_at", {
+      withTimezone: true,
+    }),
+    refreshTokenExpiresAt: timestamp("refresh_token_expires_at", {
+      withTimezone: true,
+    }),
     scope: text("scope"),
     idToken: text("id_token"),
+    password: text("password"), // For credential provider
     // Timestamps
     createdAt: timestamp("created_at", { withTimezone: true })
       .notNull()
@@ -27,16 +32,16 @@ export const accounts = pgTable(
   },
   (table) => [
     index("accounts_user_id_idx").on(table.userId),
-    index("accounts_provider_idx").on(table.provider, table.providerAccountId),
+    index("accounts_provider_idx").on(table.providerId, table.accountId),
   ],
 );
 
-// User sessions
+// User sessions - Better Auth compatible
 export const sessions = pgTable(
   "sessions",
   {
-    id: uuid("id").primaryKey().defaultRandom(),
-    userId: uuid("user_id")
+    id: text("id").primaryKey(), // Better Auth generates string IDs
+    userId: text("user_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     token: text("token").notNull().unique(),
@@ -57,24 +62,25 @@ export const sessions = pgTable(
   ],
 );
 
-// Email verification tokens
+// Email verification tokens (Better Auth compatible)
+// Note: Better Auth uses string IDs, not UUIDs
 export const verificationTokens = pgTable(
   "verification_tokens",
   {
-    id: uuid("id").primaryKey().defaultRandom(),
-    userId: uuid("user_id")
-      .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
-    token: text("token").notNull().unique(),
-    type: text("type").notNull(), // "email_verification", "password_reset"
+    id: text("id").primaryKey(), // Better Auth generates string IDs
+    identifier: text("identifier").notNull(), // email or other identifier
+    value: text("value").notNull().unique(), // the token value
     expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
     createdAt: timestamp("created_at", { withTimezone: true })
       .notNull()
       .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
   },
   (table) => [
-    index("verification_tokens_token_idx").on(table.token),
-    index("verification_tokens_user_id_idx").on(table.userId),
+    index("verification_tokens_identifier_idx").on(table.identifier),
+    index("verification_tokens_value_idx").on(table.value),
   ],
 );
 

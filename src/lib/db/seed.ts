@@ -69,6 +69,7 @@ const DEFAULT_CATEGORIES = [
 
 // Sample data for development
 const SAMPLE_USER = {
+  id: "demo-user-001",
   email: "demo@bookmind.app",
   emailVerified: true,
   name: "Demo User",
