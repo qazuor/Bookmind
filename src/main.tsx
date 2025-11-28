@@ -4,6 +4,8 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { queryClient } from "@/lib/query-client";
 import { routes } from "@/router";
+// Initialize i18n before rendering
+import "@/lib/i18n/config";
 import "./styles/globals.css";
 
 const rootElement = document.getElementById("root");
