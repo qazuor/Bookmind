@@ -16,6 +16,7 @@ import {
   UserIcon,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { LanguageSelector } from "@/components/shared/LanguageSelector";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -26,6 +27,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { useI18n } from "@/hooks/use-i18n";
 import { signOut, useSession } from "@/lib/auth-client";
 import type { Theme } from "@/stores/ui-store";
 import { useUIStore } from "@/stores/ui-store";
@@ -61,6 +63,7 @@ function ThemeIcon({ theme }: { theme: Theme }) {
 
 export function Header() {
   const navigate = useNavigate();
+  const { t } = useI18n();
   const { data: session, isPending } = useSession();
   const { theme, setTheme, toggleSidebar, toggleMobileNav } = useUIStore();
 
@@ -116,7 +119,7 @@ export function Header() {
             <SearchIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               type="search"
-              placeholder="Search bookmarks..."
+              placeholder={t("search.placeholder")}
               className="w-full pl-9 pr-4"
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
@@ -142,6 +145,9 @@ export function Header() {
           >
             <SearchIcon className="h-5 w-5" />
           </Button>
+
+          {/* Language selector */}
+          <LanguageSelector />
 
           {/* Theme toggle */}
           <Button
@@ -189,13 +195,13 @@ export function Header() {
                 <DropdownMenuItem asChild>
                   <Link to="/profile" className="cursor-pointer">
                     <UserIcon className="mr-2 h-4 w-4" />
-                    Profile
+                    {t("nav.profile")}
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/settings" className="cursor-pointer">
                     <SettingsIcon className="mr-2 h-4 w-4" />
-                    Settings
+                    {t("nav.settings")}
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -204,17 +210,17 @@ export function Header() {
                   className="cursor-pointer text-destructive focus:text-destructive"
                 >
                   <LogOutIcon className="mr-2 h-4 w-4" />
-                  Sign out
+                  {t("nav.logout")}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
             <div className="flex items-center gap-2">
               <Button variant="ghost" asChild>
-                <Link to="/login">Sign in</Link>
+                <Link to="/login">{t("nav.login")}</Link>
               </Button>
               <Button asChild>
-                <Link to="/signup">Sign up</Link>
+                <Link to="/signup">{t("nav.signup")}</Link>
               </Button>
             </div>
           )}
