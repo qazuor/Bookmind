@@ -48,6 +48,9 @@ export {
 export { useDebouncedCallback, useDebouncedValue } from "./use-debounced-value";
 // Export hook
 export { useExport } from "./use-export";
+export type { UseI18nReturn } from "./use-i18n";
+// i18n hook
+export { useI18n } from "./use-i18n";
 // Search hooks
 export {
   useSearch,
