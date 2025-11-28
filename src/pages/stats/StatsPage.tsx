@@ -1,27 +1,19 @@
 /**
  * Stats Page (P7-014)
  *
- * Dashboard with charts and statistics.
+ * Dashboard with charts and statistics using extracted components.
  */
 
-import {
-  BarChart3,
-  BookOpen,
-  Calendar,
-  Folder,
-  Tag,
-  TrendingUp,
-} from "lucide-react";
+import { BookOpen, Folder, Tag, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 import { StatCardSkeleton } from "@/components/shared/LoadingSkeleton";
-import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+  ActivityChart,
+  CategoryChart,
+  StatCard,
+  TagCloud,
+} from "@/components/stats";
+import { Button } from "@/components/ui/button";
 
 export function StatsPage() {
   // TODO: Replace with real data from useOverviewStats and useActivityStats hooks
@@ -87,159 +79,46 @@ export function StatsPage() {
           ))
         ) : (
           <>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Total Bookmarks
-                </CardTitle>
-                <BookOpen className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{stats.totalBookmarks}</div>
-                <p className="text-xs text-muted-foreground">
-                  +{stats.bookmarksThisMonth} this month
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Collections
-                </CardTitle>
-                <Folder className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {stats.totalCollections}
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  Organize your links
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Tags</CardTitle>
-                <Tag className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{stats.totalTags}</div>
-                <p className="text-xs text-muted-foreground">
-                  Unique tags used
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Growth</CardTitle>
-                <TrendingUp className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">+{stats.growth}%</div>
-                <p className="text-xs text-muted-foreground">From last month</p>
-              </CardContent>
-            </Card>
+            <StatCard
+              title="Total Bookmarks"
+              value={stats.totalBookmarks}
+              description={`+${stats.bookmarksThisMonth} this month`}
+              icon={BookOpen}
+            />
+            <StatCard
+              title="Collections"
+              value={stats.totalCollections}
+              description="Organize your links"
+              icon={Folder}
+            />
+            <StatCard
+              title="Tags"
+              value={stats.totalTags}
+              description="Unique tags used"
+              icon={Tag}
+            />
+            <StatCard
+              title="Growth"
+              value={`+${stats.growth}%`}
+              description="From last month"
+              icon={TrendingUp}
+            />
           </>
         )}
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Category Distribution */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <BarChart3 className="h-5 w-5" />
-              Bookmarks by Category
-            </CardTitle>
-            <CardDescription>
-              Distribution of bookmarks across categories.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {topCategories.map((category) => (
-                <div key={category.name} className="space-y-2">
-                  <div className="flex items-center justify-between text-sm">
-                    <span>{category.name}</span>
-                    <span className="text-muted-foreground">
-                      {category.count}
-                    </span>
-                  </div>
-                  <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
-                    <div
-                      className="h-full rounded-full transition-all"
-                      style={{
-                        width: `${(category.count / stats.totalBookmarks) * 100}%`,
-                        backgroundColor: category.color,
-                      }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <CategoryChart
+          categories={topCategories}
+          total={stats.totalBookmarks}
+        />
 
         {/* Top Tags */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Tag className="h-5 w-5" />
-              Top Tags
-            </CardTitle>
-            <CardDescription>Most frequently used tags.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap gap-2">
-              {topTags.map((tag) => (
-                <Link
-                  key={tag.name}
-                  to={`/bookmarks?tags=${tag.name}`}
-                  className="inline-flex items-center gap-1 rounded-full bg-muted px-3 py-1 text-sm hover:bg-muted/80"
-                >
-                  <span>{tag.name}</span>
-                  <span className="text-muted-foreground">({tag.count})</span>
-                </Link>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <TagCloud tags={topTags} />
 
         {/* Recent Activity */}
-        <Card className="lg:col-span-2">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Calendar className="h-5 w-5" />
-              Recent Activity
-            </CardTitle>
-            <CardDescription>
-              Bookmarks added in the last 7 days.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex h-32 items-end justify-between gap-2">
-              {recentActivity.map((day) => (
-                <div
-                  key={day.date}
-                  className="flex flex-1 flex-col items-center gap-2"
-                >
-                  <div
-                    className="w-full rounded-t bg-primary transition-all"
-                    style={{ height: `${(day.count / 10) * 100}%` }}
-                  />
-                  <span className="text-xs text-muted-foreground">
-                    {new Date(day.date).toLocaleDateString("en-US", {
-                      weekday: "short",
-                    })}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <ActivityChart data={recentActivity} maxCount={10} />
       </div>
     </div>
   );
