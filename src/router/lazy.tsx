@@ -52,7 +52,10 @@ export function lazyPage(
   };
 }
 
-// Auth pages (loaded immediately as they're entry points)
+// ============================================================================
+// Auth Pages
+// ============================================================================
+
 export const LoginPage = lazyPage(
   () => import("@/pages/auth/LoginPage"),
   "LoginPage",
@@ -73,13 +76,67 @@ export const ResetPasswordPage = lazyPage(
   "ResetPasswordPage",
 );
 
-// Dashboard (preload for logged-in users)
+// ============================================================================
+// Public Pages
+// ============================================================================
+
+export const LandingPage = lazyPage(
+  () => import("@/pages/public/LandingPage"),
+  "LandingPage",
+);
+
+export const PrivacyPage = lazyPage(
+  () => import("@/pages/public/PrivacyPage"),
+  "PrivacyPage",
+);
+
+export const TermsPage = lazyPage(
+  () => import("@/pages/public/TermsPage"),
+  "TermsPage",
+);
+
+export const PublicProfilePage = lazyPage(
+  () => import("@/pages/public/PublicProfilePage"),
+  "PublicProfilePage",
+);
+
+export const SharedBookmarkPage = lazyPage(
+  () => import("@/pages/public/SharedBookmarkPage"),
+  "SharedBookmarkPage",
+);
+
+export const SharedCollectionPage = lazyPage(
+  () => import("@/pages/public/SharedCollectionPage"),
+  "SharedCollectionPage",
+);
+
+// ============================================================================
+// Error Pages
+// ============================================================================
+
+export const NotFoundPage = lazyPage(
+  () => import("@/pages/errors/NotFoundPage"),
+  "NotFoundPage",
+);
+
+export const ErrorPage = lazyPage(
+  () => import("@/pages/errors/ErrorPage"),
+  "ErrorPage",
+);
+
+// ============================================================================
+// Dashboard Pages
+// ============================================================================
+
 export const DashboardPage = lazyPage(
   () => import("@/pages/dashboard/DashboardPage"),
   "DashboardPage",
 );
 
-// Bookmarks
+// ============================================================================
+// Bookmark Pages
+// ============================================================================
+
 export const BookmarksPage = lazyPage(
   () => import("@/pages/bookmarks/BookmarksPage"),
   "BookmarksPage",
@@ -90,7 +147,20 @@ export const BookmarkDetailPage = lazyPage(
   "BookmarkDetailPage",
 );
 
-// Collections
+export const NewBookmarkPage = lazyPage(
+  () => import("@/pages/bookmarks/NewBookmarkPage"),
+  "NewBookmarkPage",
+);
+
+export const ArchivePage = lazyPage(
+  () => import("@/pages/bookmarks/ArchivePage"),
+  "ArchivePage",
+);
+
+// ============================================================================
+// Collection Pages
+// ============================================================================
+
 export const CollectionsPage = lazyPage(
   () => import("@/pages/collections/CollectionsPage"),
   "CollectionsPage",
@@ -101,26 +171,61 @@ export const CollectionDetailPage = lazyPage(
   "CollectionDetailPage",
 );
 
-// Categories
+// ============================================================================
+// Category Pages
+// ============================================================================
+
 export const CategoriesPage = lazyPage(
   () => import("@/pages/categories/CategoriesPage"),
   "CategoriesPage",
 );
 
-// Tags
+// ============================================================================
+// Tag Pages
+// ============================================================================
+
 export const TagsPage = lazyPage(
   () => import("@/pages/tags/TagsPage"),
   "TagsPage",
 );
 
-// Search
+// ============================================================================
+// Search Pages
+// ============================================================================
+
 export const SearchPage = lazyPage(
   () => import("@/pages/search/SearchPage"),
   "SearchPage",
 );
 
-// Settings
+// ============================================================================
+// Settings Pages
+// ============================================================================
+
 export const SettingsPage = lazyPage(
   () => import("@/pages/settings/SettingsPage"),
   "SettingsPage",
+);
+
+export const ProfilePage = lazyPage(
+  () => import("@/pages/settings/ProfilePage"),
+  "ProfilePage",
+);
+
+// ============================================================================
+// Stats Pages
+// ============================================================================
+
+export const StatsPage = lazyPage(
+  () => import("@/pages/stats/StatsPage"),
+  "StatsPage",
+);
+
+// ============================================================================
+// Export Pages
+// ============================================================================
+
+export const ExportPage = lazyPage(
+  () => import("@/pages/export/ExportPage"),
+  "ExportPage",
 );
