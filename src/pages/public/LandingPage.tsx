@@ -4,6 +4,7 @@
  * Public landing page with hero, features, and CTA.
  */
 
+import type { LucideIcon } from "lucide-react";
 import {
   BookOpen,
   Brain,
@@ -23,59 +24,59 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useI18n } from "@/hooks/use-i18n";
 
-const features = [
+interface Feature {
+  icon: LucideIcon;
+  titleKey: string;
+  descriptionKey: string;
+}
+
+const featureConfigs: Feature[] = [
   {
     icon: Brain,
-    title: "AI-Powered Summaries",
-    description:
-      "Automatically generate intelligent summaries for your bookmarks using advanced AI technology.",
+    titleKey: "landing.features.aiSummaries.title",
+    descriptionKey: "landing.features.aiSummaries.description",
   },
   {
     icon: Sparkles,
-    title: "Smart Tag Suggestions",
-    description:
-      "Get AI-suggested tags based on content analysis to keep your bookmarks organized.",
+    titleKey: "landing.features.smartTags.title",
+    descriptionKey: "landing.features.smartTags.description",
   },
   {
     icon: Folder,
-    title: "Collections & Categories",
-    description:
-      "Organize bookmarks into nested collections and categories for easy navigation.",
+    titleKey: "landing.features.collections.title",
+    descriptionKey: "landing.features.collections.description",
   },
   {
     icon: Tag,
-    title: "Powerful Tagging",
-    description:
-      "Use tags to cross-reference and find bookmarks quickly across your library.",
+    titleKey: "landing.features.tagging.title",
+    descriptionKey: "landing.features.tagging.description",
   },
   {
     icon: Search,
-    title: "Semantic Search",
-    description:
-      "Find bookmarks using natural language queries powered by AI understanding.",
+    titleKey: "landing.features.search.title",
+    descriptionKey: "landing.features.search.description",
   },
   {
     icon: Share2,
-    title: "Easy Sharing",
-    description:
-      "Share individual bookmarks or entire collections with customizable privacy.",
+    titleKey: "landing.features.sharing.title",
+    descriptionKey: "landing.features.sharing.description",
   },
   {
     icon: Cloud,
-    title: "Cloud Sync",
-    description:
-      "Access your bookmarks from anywhere with secure cloud synchronization.",
+    titleKey: "landing.features.cloudSync.title",
+    descriptionKey: "landing.features.cloudSync.description",
   },
   {
     icon: BookOpen,
-    title: "Import & Export",
-    description:
-      "Import from browsers and export to HTML, JSON, or CSV formats.",
+    titleKey: "landing.features.importExport.title",
+    descriptionKey: "landing.features.importExport.description",
   },
 ];
 
 export function LandingPage() {
+  const { t } = useI18n();
   return (
     <div className="flex min-h-screen flex-col">
       {/* Header */}
@@ -83,15 +84,15 @@ export function LandingPage() {
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <Link to="/" className="flex items-center gap-2">
             <BookOpen className="h-8 w-8 text-primary" />
-            <span className="text-xl font-bold">BookMind</span>
+            <span className="text-xl font-bold">{t("common.appName")}</span>
           </Link>
 
           <nav className="flex items-center gap-4">
             <Button variant="ghost" asChild>
-              <Link to="/login">Sign In</Link>
+              <Link to="/login">{t("nav.login")}</Link>
             </Button>
             <Button asChild>
-              <Link to="/signup">Get Started</Link>
+              <Link to="/signup">{t("landing.hero.cta")}</Link>
             </Button>
           </nav>
         </div>
@@ -101,25 +102,22 @@ export function LandingPage() {
       <section className="flex-1">
         <div className="container mx-auto px-4 py-24 text-center">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-            Your Bookmarks,{" "}
-            <span className="text-primary">Supercharged with AI</span>
+            {t("landing.hero.title")}
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-            BookMind is an intelligent bookmark manager that uses AI to
-            automatically summarize, categorize, and organize your saved links.
-            Never lose a bookmark again.
+            {t("landing.hero.subtitle")}
           </p>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button size="lg" asChild>
               <Link to="/signup">
                 <Sparkles className="mr-2 h-5 w-5" />
-                Start Free
+                {t("landing.hero.cta")}
               </Link>
             </Button>
             <Button size="lg" variant="outline" asChild>
-              <Link to="/login">Sign In</Link>
+              <Link to="/login">{t("nav.login")}</Link>
             </Button>
           </div>
         </div>
@@ -130,23 +128,22 @@ export function LandingPage() {
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h2 className="text-3xl font-bold">
-              Everything You Need to Manage Bookmarks
+              {t("landing.features.title")}
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-              Powerful features to help you save, organize, and find your
-              bookmarks effortlessly.
+              {t("landing.features.subtitle")}
             </p>
           </div>
 
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {features.map((feature) => (
-              <Card key={feature.title}>
+            {featureConfigs.map((feature) => (
+              <Card key={feature.titleKey}>
                 <CardHeader>
                   <feature.icon className="h-10 w-10 text-primary" />
-                  <CardTitle className="mt-4">{feature.title}</CardTitle>
+                  <CardTitle className="mt-4">{t(feature.titleKey)}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription>{feature.description}</CardDescription>
+                  <CardDescription>{t(feature.descriptionKey)}</CardDescription>
                 </CardContent>
               </Card>
             ))}
@@ -157,13 +154,12 @@ export function LandingPage() {
       {/* CTA Section */}
       <section className="py-24">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold">Ready to Get Started?</h2>
+          <h2 className="text-3xl font-bold">{t("landing.cta.title")}</h2>
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-            Join thousands of users who are already using BookMind to manage
-            their bookmarks smarter.
+            {t("landing.cta.subtitle")}
           </p>
           <Button size="lg" className="mt-8" asChild>
-            <Link to="/signup">Create Free Account</Link>
+            <Link to="/signup">{t("landing.cta.button")}</Link>
           </Button>
         </div>
       </section>
@@ -173,20 +169,21 @@ export function LandingPage() {
         <div className="container mx-auto flex flex-col items-center justify-between gap-4 px-4 sm:flex-row">
           <div className="flex items-center gap-2">
             <BookOpen className="h-5 w-5 text-primary" />
-            <span className="font-semibold">BookMind</span>
+            <span className="font-semibold">{t("common.appName")}</span>
           </div>
 
           <nav className="flex gap-6 text-sm text-muted-foreground">
             <Link to="/privacy" className="hover:text-foreground">
-              Privacy Policy
+              {t("legal.privacy.title")}
             </Link>
             <Link to="/terms" className="hover:text-foreground">
-              Terms of Service
+              {t("legal.terms.title")}
             </Link>
           </nav>
 
           <p className="text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} BookMind. All rights reserved.
+            &copy; {new Date().getFullYear()} {t("common.appName")}.{" "}
+            {t("landing.footer.rights")}
           </p>
         </div>
       </footer>
