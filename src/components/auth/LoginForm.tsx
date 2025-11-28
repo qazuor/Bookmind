@@ -19,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/use-auth";
+import { useI18n } from "@/hooks/use-i18n";
 import { loginSchema } from "@/schemas/auth.schema";
 import { SocialButtons } from "./SocialButtons";
 
@@ -29,6 +30,7 @@ interface LoginFormProps {
 export function LoginForm({ onSuccess }: LoginFormProps) {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useI18n();
   const { signInWithEmail } = useAuth();
   const [error, setError] = useState<string | null>(null);
 
@@ -73,8 +75,10 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
   return (
     <Card className="w-full max-w-md">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold">Welcome back</CardTitle>
-        <CardDescription>Sign in to your account to continue</CardDescription>
+        <CardTitle className="text-2xl font-bold">
+          {t("auth.login.title")}
+        </CardTitle>
+        <CardDescription>{t("auth.login.subtitle")}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <SocialButtons mode="signin" callbackURL={from} />
@@ -85,7 +89,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
           </div>
           <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-background px-2 text-muted-foreground">
-              Or continue with
+              {t("auth.social.continueWith")}
             </span>
           </div>
         </div>
@@ -108,9 +112,9 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
             name="email"
             validators={{
               onChange: ({ value }) => {
-                if (!value) return "Email is required";
+                if (!value) return t("auth.errors.emailRequired");
                 if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-                  return "Invalid email address";
+                  return t("auth.errors.invalidEmail");
                 }
                 return undefined;
               },
@@ -118,7 +122,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
           >
             {(field) => (
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t("auth.login.email")}</Label>
                 <Input
                   id="email"
                   type="email"
@@ -141,7 +145,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
             name="password"
             validators={{
               onChange: ({ value }) => {
-                if (!value) return "Password is required";
+                if (!value) return t("auth.errors.passwordRequired");
                 return undefined;
               },
             }}
@@ -149,12 +153,12 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
             {(field) => (
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password">{t("auth.login.password")}</Label>
                   <Link
                     to="/forgot-password"
                     className="text-sm text-muted-foreground hover:text-primary"
                   >
-                    Forgot password?
+                    {t("auth.login.forgotPassword")}
                   </Link>
                 </div>
                 <Input
@@ -185,7 +189,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
                   className="h-4 w-4 rounded border-gray-300"
                 />
                 <Label htmlFor="rememberMe" className="text-sm font-normal">
-                  Remember me
+                  {t("auth.login.rememberMe")}
                 </Label>
               </div>
             )}
@@ -200,7 +204,9 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
                 className="w-full"
                 disabled={!canSubmit || isSubmitting}
               >
-                {isSubmitting ? "Signing in..." : "Sign in"}
+                {isSubmitting
+                  ? t("auth.login.submitting")
+                  : t("auth.login.submit")}
               </Button>
             )}
           </form.Subscribe>
@@ -208,9 +214,9 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
       </CardContent>
       <CardFooter className="flex flex-col space-y-2">
         <div className="text-sm text-muted-foreground">
-          Don&apos;t have an account?{" "}
+          {t("auth.login.noAccount")}{" "}
           <Link to="/signup" className="text-primary hover:underline">
-            Sign up
+            {t("auth.login.signupLink")}
           </Link>
         </div>
       </CardFooter>

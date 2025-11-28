@@ -19,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/use-auth";
+import { useI18n } from "@/hooks/use-i18n";
 import { SocialButtons } from "./SocialButtons";
 
 interface SignupFormProps {
@@ -30,6 +31,7 @@ const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/;
 
 export function SignupForm({ onSuccess }: SignupFormProps) {
   const navigate = useNavigate();
+  const { t } = useI18n();
   const { signUpWithEmail } = useAuth();
   const [error, setError] = useState<string | null>(null);
 
@@ -51,13 +53,13 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
 
       // Check terms acceptance
       if (!value.acceptTerms) {
-        setError("You must accept the terms and conditions");
+        setError(t("auth.errors.termsRequired"));
         return;
       }
 
       // Check password match
       if (value.password !== value.confirmPassword) {
-        setError("Passwords do not match");
+        setError(t("auth.errors.passwordMismatch"));
         return;
       }
 
@@ -86,8 +88,10 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
   return (
     <Card className="w-full max-w-md">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold">Create an account</CardTitle>
-        <CardDescription>Enter your details to get started</CardDescription>
+        <CardTitle className="text-2xl font-bold">
+          {t("auth.signup.title")}
+        </CardTitle>
+        <CardDescription>{t("auth.signup.subtitle")}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <SocialButtons mode="signup" />
@@ -98,7 +102,7 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
           </div>
           <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-background px-2 text-muted-foreground">
-              Or continue with
+              {t("auth.social.continueWith")}
             </span>
           </div>
         </div>
@@ -122,10 +126,10 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
             validators={{
               onChange: ({ value }) => {
                 if (value && value.length < 2) {
-                  return "Name must be at least 2 characters";
+                  return t("auth.errors.nameTooShort");
                 }
                 if (value && value.length > 100) {
-                  return "Name must be less than 100 characters";
+                  return t("auth.errors.nameTooLong");
                 }
                 return undefined;
               },
@@ -133,7 +137,7 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
           >
             {(field) => (
               <div className="space-y-2">
-                <Label htmlFor="name">Name (optional)</Label>
+                <Label htmlFor="name">{t("auth.signup.nameOptional")}</Label>
                 <Input
                   id="name"
                   type="text"
@@ -155,9 +159,9 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
             name="email"
             validators={{
               onChange: ({ value }) => {
-                if (!value) return "Email is required";
+                if (!value) return t("auth.errors.emailRequired");
                 if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-                  return "Invalid email address";
+                  return t("auth.errors.invalidEmail");
                 }
                 return undefined;
               },
@@ -165,7 +169,7 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
           >
             {(field) => (
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t("auth.signup.email")}</Label>
                 <Input
                   id="email"
                   type="email"
@@ -188,13 +192,11 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
             name="password"
             validators={{
               onChange: ({ value }) => {
-                if (!value) return "Password is required";
-                if (value.length < 8)
-                  return "Password must be at least 8 characters";
-                if (value.length > 100)
-                  return "Password must be less than 100 characters";
+                if (!value) return t("auth.errors.passwordRequired");
+                if (value.length < 8) return t("auth.errors.passwordTooShort");
+                if (value.length > 100) return t("auth.errors.passwordTooLong");
                 if (!PASSWORD_REGEX.test(value)) {
-                  return "Password must contain at least one lowercase letter, one uppercase letter, and one number";
+                  return t("auth.errors.weakPassword");
                 }
                 return undefined;
               },
@@ -202,7 +204,7 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
           >
             {(field) => (
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t("auth.signup.password")}</Label>
                 <Input
                   id="password"
                   type="password"
@@ -217,8 +219,7 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
                   </p>
                 )}
                 <p className="text-xs text-muted-foreground">
-                  Must be at least 8 characters with uppercase, lowercase, and
-                  number
+                  {t("auth.signup.passwordHint")}
                 </p>
               </div>
             )}
@@ -230,15 +231,18 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
               onChangeListenTo: ["password"],
               onChange: ({ value, fieldApi }) => {
                 const password = fieldApi.form.getFieldValue("password");
-                if (!value) return "Please confirm your password";
-                if (value !== password) return "Passwords do not match";
+                if (!value) return t("auth.errors.confirmPasswordRequired");
+                if (value !== password)
+                  return t("auth.errors.passwordMismatch");
                 return undefined;
               },
             }}
           >
             {(field) => (
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Label htmlFor="confirmPassword">
+                  {t("auth.signup.confirmPassword")}
+                </Label>
                 <Input
                   id="confirmPassword"
                   type="password"
@@ -260,7 +264,7 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
             name="acceptTerms"
             validators={{
               onChange: ({ value }) => {
-                if (!value) return "You must accept the terms and conditions";
+                if (!value) return t("auth.errors.termsRequired");
                 return undefined;
               },
             }}
@@ -276,16 +280,16 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
                     className="mt-1 h-4 w-4 rounded border-gray-300"
                   />
                   <Label htmlFor="acceptTerms" className="text-sm font-normal">
-                    I agree to the{" "}
+                    {t("auth.signup.acceptTerms")}{" "}
                     <Link to="/terms" className="text-primary hover:underline">
-                      Terms of Service
+                      {t("auth.signup.termsLink")}
                     </Link>{" "}
-                    and{" "}
+                    {t("common.and")}{" "}
                     <Link
                       to="/privacy"
                       className="text-primary hover:underline"
                     >
-                      Privacy Policy
+                      {t("auth.signup.privacyLink")}
                     </Link>
                   </Label>
                 </div>
@@ -324,7 +328,9 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
                 className="w-full"
                 disabled={!canSubmit || isSubmitting}
               >
-                {isSubmitting ? "Creating account..." : "Create account"}
+                {isSubmitting
+                  ? t("auth.signup.submitting")
+                  : t("auth.signup.submit")}
               </Button>
             )}
           </form.Subscribe>
@@ -332,9 +338,9 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
       </CardContent>
       <CardFooter className="flex flex-col space-y-2">
         <div className="text-sm text-muted-foreground">
-          Already have an account?{" "}
+          {t("auth.signup.hasAccount")}{" "}
           <Link to="/login" className="text-primary hover:underline">
-            Sign in
+            {t("auth.signup.loginLink")}
           </Link>
         </div>
       </CardFooter>
