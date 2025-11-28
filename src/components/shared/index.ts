@@ -18,7 +18,14 @@ export {
 } from "./LoadingSkeleton";
 
 export { Favicon, OptimizedImage } from "./OptimizedImage";
-
+export { SearchBar, type SearchBarProps } from "./SearchBar";
+export {
+  SortDropdown,
+  type SortDropdownProps,
+  type SortField,
+  type SortOption,
+  type SortOrder,
+} from "./SortDropdown";
 export {
   toast,
   toastDismiss,
@@ -29,3 +36,4 @@ export {
   toastSuccess,
   toastWarning,
 } from "./toast";
+export { ViewModeToggle, type ViewModeToggleProps } from "./ViewModeToggle";
