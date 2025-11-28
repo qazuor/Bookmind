@@ -1,0 +1,502 @@
+{
+  "common": {
+    "appName": "BookMind",
+    "loading": "Cargando...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Crear",
+    "add": "Agregar",
+    "remove": "Quitar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "back": "Volver",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "close": "Cerrar",
+    "confirm": "Confirmar",
+    "submit": "Enviar",
+    "reset": "Restablecer",
+    "clear": "Limpiar",
+    "copy": "Copiar",
+    "share": "Compartir",
+    "export": "Exportar",
+    "import": "Importar",
+    "download": "Descargar",
+    "upload": "Subir",
+    "refresh": "Actualizar",
+    "retry": "Reintentar",
+    "yes": "Sí",
+    "no": "No",
+    "or": "o",
+    "and": "y",
+    "all": "Todos",
+    "none": "Ninguno",
+    "other": "Otro",
+    "more": "Más",
+    "less": "Menos",
+    "show": "Mostrar",
+    "hide": "Ocultar",
+    "view": "Ver",
+    "viewAll": "Ver todo",
+    "seeMore": "Ver más",
+    "seeLess": "Ver menos",
+    "noResults": "No se encontraron resultados",
+    "error": "Error",
+    "success": "Éxito",
+    "warning": "Advertencia",
+    "info": "Información"
+  },
+  "nav": {
+    "home": "Inicio",
+    "dashboard": "Panel",
+    "bookmarks": "Marcadores",
+    "collections": "Colecciones",
+    "categories": "Categorías",
+    "tags": "Etiquetas",
+    "archive": "Archivo",
+    "favorites": "Favoritos",
+    "stats": "Estadísticas",
+    "settings": "Configuración",
+    "profile": "Perfil",
+    "export": "Exportar",
+    "logout": "Cerrar sesión",
+    "login": "Iniciar sesión",
+    "signup": "Registrarse"
+  },
+  "auth": {
+    "login": {
+      "title": "Bienvenido de nuevo",
+      "subtitle": "Inicia sesión en tu cuenta",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "rememberMe": "Recordarme",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "submit": "Iniciar sesión",
+      "noAccount": "¿No tienes una cuenta?",
+      "signupLink": "Regístrate"
+    },
+    "signup": {
+      "title": "Crear una cuenta",
+      "subtitle": "Comienza a organizar tus marcadores",
+      "name": "Nombre completo",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "confirmPassword": "Confirmar contraseña",
+      "acceptTerms": "Acepto los",
+      "termsLink": "Términos de servicio",
+      "privacyLink": "Política de privacidad",
+      "submit": "Crear cuenta",
+      "hasAccount": "¿Ya tienes una cuenta?",
+      "loginLink": "Inicia sesión"
+    },
+    "forgotPassword": {
+      "title": "¿Olvidaste tu contraseña?",
+      "subtitle": "Ingresa tu correo para restablecer tu contraseña",
+      "email": "Correo electrónico",
+      "submit": "Enviar enlace",
+      "backToLogin": "Volver al inicio de sesión",
+      "success": "Revisa tu correo para el enlace de restablecimiento"
+    },
+    "resetPassword": {
+      "title": "Restablecer contraseña",
+      "subtitle": "Ingresa tu nueva contraseña",
+      "password": "Nueva contraseña",
+      "confirmPassword": "Confirmar nueva contraseña",
+      "submit": "Restablecer contraseña",
+      "success": "Contraseña restablecida correctamente"
+    },
+    "social": {
+      "continueWith": "O continúa con",
+      "google": "Google",
+      "github": "GitHub"
+    },
+    "errors": {
+      "invalidCredentials": "Correo o contraseña inválidos",
+      "emailInUse": "El correo ya está en uso",
+      "weakPassword": "La contraseña es muy débil",
+      "passwordMismatch": "Las contraseñas no coinciden",
+      "invalidToken": "Token inválido o expirado",
+      "generic": "Ocurrió un error. Por favor intenta de nuevo."
+    }
+  },
+  "bookmarks": {
+    "title": "Marcadores",
+    "newBookmark": "Nuevo marcador",
+    "editBookmark": "Editar marcador",
+    "deleteBookmark": "Eliminar marcador",
+    "deleteConfirm": "¿Estás seguro de que quieres eliminar este marcador?",
+    "form": {
+      "url": "URL",
+      "urlPlaceholder": "https://ejemplo.com",
+      "title": "Título",
+      "titlePlaceholder": "Título del marcador",
+      "description": "Descripción",
+      "descriptionPlaceholder": "Breve descripción del marcador",
+      "notes": "Notas",
+      "notesPlaceholder": "Tus notas personales",
+      "category": "Categoría",
+      "selectCategory": "Selecciona una categoría",
+      "tags": "Etiquetas",
+      "tagsPlaceholder": "Agregar etiquetas...",
+      "collections": "Colecciones",
+      "selectCollections": "Seleccionar colecciones",
+      "isPublic": "Hacer público",
+      "isFavorite": "Agregar a favoritos"
+    },
+    "card": {
+      "visit": "Visitar",
+      "copyLink": "Copiar enlace",
+      "addToCollection": "Agregar a colección",
+      "archive": "Archivar",
+      "unarchive": "Desarchivar",
+      "favorite": "Favorito",
+      "unfavorite": "Quitar de favoritos"
+    },
+    "filters": {
+      "all": "Todos los marcadores",
+      "favorites": "Favoritos",
+      "archived": "Archivados",
+      "public": "Públicos",
+      "private": "Privados",
+      "hasAiSummary": "Con resumen IA",
+      "noCategory": "Sin categoría"
+    },
+    "sort": {
+      "newest": "Más recientes",
+      "oldest": "Más antiguos",
+      "titleAsc": "Título (A-Z)",
+      "titleDesc": "Título (Z-A)",
+      "mostVisited": "Más visitados"
+    },
+    "empty": {
+      "title": "Aún no hay marcadores",
+      "description": "Comienza a guardar tus enlaces favoritos",
+      "action": "Agregar tu primer marcador"
+    },
+    "searchEmpty": {
+      "title": "No se encontraron marcadores",
+      "description": "Intenta ajustar tu búsqueda o filtros"
+    }
+  },
+  "collections": {
+    "title": "Colecciones",
+    "newCollection": "Nueva colección",
+    "editCollection": "Editar colección",
+    "deleteCollection": "Eliminar colección",
+    "deleteConfirm": "¿Estás seguro de que quieres eliminar esta colección? Los marcadores no serán eliminados.",
+    "form": {
+      "name": "Nombre",
+      "namePlaceholder": "Nombre de la colección",
+      "description": "Descripción",
+      "descriptionPlaceholder": "¿De qué trata esta colección?",
+      "parent": "Colección padre",
+      "selectParent": "Seleccionar padre (opcional)",
+      "noParent": "Sin padre"
+    },
+    "share": {
+      "title": "Compartir colección",
+      "description": "Comparte esta colección con otros",
+      "generateLink": "Generar enlace",
+      "copyLink": "Copiar enlace",
+      "linkCopied": "Enlace copiado al portapapeles",
+      "revokeLink": "Revocar enlace",
+      "revokeConfirm": "¿Estás seguro? Los enlaces existentes dejarán de funcionar."
+    },
+    "empty": {
+      "title": "Aún no hay colecciones",
+      "description": "Organiza tus marcadores en colecciones",
+      "action": "Crear tu primera colección"
+    }
+  },
+  "categories": {
+    "title": "Categorías",
+    "newCategory": "Nueva categoría",
+    "editCategory": "Editar categoría",
+    "deleteCategory": "Eliminar categoría",
+    "deleteConfirm": "¿Estás seguro de que quieres eliminar esta categoría? Los marcadores quedarán sin categoría.",
+    "form": {
+      "name": "Nombre",
+      "namePlaceholder": "Nombre de la categoría",
+      "color": "Color",
+      "selectColor": "Selecciona un color",
+      "icon": "Icono",
+      "selectIcon": "Selecciona un icono"
+    },
+    "default": {
+      "development": "Desarrollo",
+      "design": "Diseño",
+      "business": "Negocios",
+      "marketing": "Marketing",
+      "education": "Educación",
+      "entertainment": "Entretenimiento",
+      "other": "Otro"
+    },
+    "empty": {
+      "title": "Aún no hay categorías",
+      "description": "Las categorías ayudan a clasificar tus marcadores",
+      "action": "Crear tu primera categoría"
+    }
+  },
+  "tags": {
+    "title": "Etiquetas",
+    "newTag": "Nueva etiqueta",
+    "editTag": "Editar etiqueta",
+    "deleteTag": "Eliminar etiqueta",
+    "deleteConfirm": "¿Estás seguro de que quieres eliminar esta etiqueta? Se quitará de todos los marcadores.",
+    "form": {
+      "name": "Nombre",
+      "namePlaceholder": "Nombre de etiqueta (minúsculas)",
+      "color": "Color"
+    },
+    "popular": "Etiquetas populares",
+    "empty": {
+      "title": "Aún no hay etiquetas",
+      "description": "Las etiquetas te ayudan a encontrar marcadores rápidamente",
+      "action": "Agregar etiquetas a tus marcadores"
+    }
+  },
+  "search": {
+    "placeholder": "Buscar marcadores...",
+    "semantic": "Búsqueda inteligente",
+    "semanticTooltip": "Usa IA para encontrar marcadores por significado",
+    "results": "{{count}} resultado encontrado",
+    "results_other": "{{count}} resultados encontrados",
+    "noResults": "No se encontraron resultados",
+    "suggestions": "Sugerencias",
+    "recent": "Búsquedas recientes"
+  },
+  "ai": {
+    "summary": {
+      "title": "Resumen IA",
+      "regenerate": "Regenerar",
+      "generating": "Generando resumen...",
+      "error": "Error al generar resumen",
+      "empty": "No hay resumen disponible"
+    },
+    "tags": {
+      "title": "Etiquetas sugeridas",
+      "accept": "Aceptar",
+      "dismiss": "Descartar",
+      "acceptAll": "Aceptar todas",
+      "generating": "Sugiriendo etiquetas..."
+    },
+    "category": {
+      "title": "Categoría sugerida",
+      "confidence": "{{percent}}% de confianza",
+      "accept": "Aceptar",
+      "dismiss": "Descartar",
+      "alternatives": "Alternativas"
+    },
+    "processing": "IA procesando..."
+  },
+  "stats": {
+    "title": "Estadísticas",
+    "overview": "Resumen",
+    "totalBookmarks": "Total de marcadores",
+    "totalCollections": "Colecciones",
+    "totalCategories": "Categorías",
+    "totalTags": "Etiquetas",
+    "thisMonth": "+{{count}} este mes",
+    "growth": "Crecimiento",
+    "fromLastMonth": "Desde el mes pasado",
+    "categoryDistribution": "Distribución por categoría",
+    "topTags": "Etiquetas principales",
+    "recentActivity": "Actividad reciente",
+    "bookmarksPerDay": "Marcadores por día"
+  },
+  "export": {
+    "title": "Exportar datos",
+    "description": "Descarga tus marcadores en varios formatos",
+    "format": "Formato",
+    "formats": {
+      "json": "JSON",
+      "jsonDesc": "Datos completos con todos los detalles",
+      "html": "HTML (Netscape)",
+      "htmlDesc": "Compatible con todos los navegadores",
+      "csv": "CSV",
+      "csvDesc": "Abrir en hojas de cálculo"
+    },
+    "options": {
+      "includeArchived": "Incluir marcadores archivados",
+      "includeTags": "Incluir etiquetas",
+      "includeNotes": "Incluir notas"
+    },
+    "preview": "Vista previa",
+    "download": "Descargar",
+    "success": "Exportación descargada correctamente"
+  },
+  "settings": {
+    "title": "Configuración",
+    "appearance": {
+      "title": "Apariencia",
+      "theme": "Tema",
+      "themes": {
+        "light": "Claro",
+        "dark": "Oscuro",
+        "system": "Sistema"
+      },
+      "language": "Idioma"
+    },
+    "notifications": {
+      "title": "Notificaciones",
+      "email": "Notificaciones por correo",
+      "browser": "Notificaciones del navegador"
+    },
+    "data": {
+      "title": "Gestión de datos",
+      "export": "Exportar todos los datos",
+      "import": "Importar marcadores",
+      "delete": "Eliminar cuenta",
+      "deleteWarning": "Esta acción no se puede deshacer. Todos tus datos serán eliminados permanentemente."
+    }
+  },
+  "profile": {
+    "title": "Configuración de perfil",
+    "form": {
+      "name": "Nombre",
+      "username": "Nombre de usuario",
+      "email": "Correo electrónico",
+      "bio": "Biografía",
+      "bioPlaceholder": "Cuéntanos sobre ti",
+      "avatar": "Avatar",
+      "changeAvatar": "Cambiar avatar"
+    },
+    "public": {
+      "title": "Perfil público",
+      "bookmarks": "{{count}} marcador público",
+      "bookmarks_other": "{{count}} marcadores públicos",
+      "joinedDate": "Se unió en {{date}}"
+    }
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Bienvenido a BookMind",
+      "description": "Tu gestor de marcadores inteligente potenciado por IA"
+    },
+    "features": {
+      "title": "Características principales",
+      "description": "Descubre lo que BookMind puede hacer por ti"
+    },
+    "organize": {
+      "title": "Mantente organizado",
+      "description": "Usa colecciones, categorías y etiquetas para mantener tus marcadores ordenados"
+    },
+    "ai": {
+      "title": "Potenciado por IA",
+      "description": "Obtén resúmenes automáticos y sugerencias inteligentes de etiquetas"
+    },
+    "skip": "Omitir",
+    "getStarted": "Comenzar",
+    "complete": "Completar"
+  },
+  "errors": {
+    "404": {
+      "title": "Página no encontrada",
+      "description": "La página que buscas no existe o ha sido movida.",
+      "backHome": "Volver al inicio"
+    },
+    "500": {
+      "title": "Algo salió mal",
+      "description": "Ocurrió un error inesperado. Por favor intenta de nuevo.",
+      "retry": "Intentar de nuevo"
+    },
+    "network": {
+      "title": "Error de conexión",
+      "description": "Por favor verifica tu conexión a internet e intenta de nuevo."
+    },
+    "unauthorized": {
+      "title": "No autorizado",
+      "description": "Necesitas iniciar sesión para acceder a esta página."
+    },
+    "forbidden": {
+      "title": "Acceso denegado",
+      "description": "No tienes permiso para acceder a este recurso."
+    }
+  },
+  "landing": {
+    "hero": {
+      "title": "Tus marcadores, organizados inteligentemente",
+      "subtitle": "BookMind usa IA para categorizar automáticamente, resumir y ayudarte a redescubrir tus enlaces guardados.",
+      "cta": "Comenzar gratis",
+      "secondary": "Saber más"
+    },
+    "features": {
+      "title": "Todo lo que necesitas para gestionar marcadores",
+      "ai": {
+        "title": "Organización con IA",
+        "description": "Resúmenes automáticos, sugerencias de etiquetas y categorización inteligente"
+      },
+      "collections": {
+        "title": "Colecciones flexibles",
+        "description": "Organiza marcadores en colecciones anidadas con opciones para compartir"
+      },
+      "search": {
+        "title": "Búsqueda semántica",
+        "description": "Encuentra marcadores por significado, no solo por palabras clave"
+      },
+      "export": {
+        "title": "Exportación fácil",
+        "description": "Exporta a JSON, HTML o CSV cuando quieras"
+      }
+    },
+    "stats": {
+      "bookmarks": "Marcadores guardados",
+      "users": "Usuarios felices",
+      "searches": "Búsquedas realizadas"
+    },
+    "cta": {
+      "title": "¿Listo para organizar tus marcadores?",
+      "subtitle": "Comienza gratis. No requiere tarjeta de crédito.",
+      "button": "Crear cuenta gratis"
+    }
+  },
+  "legal": {
+    "privacy": {
+      "title": "Política de privacidad",
+      "lastUpdated": "Última actualización: {{date}}"
+    },
+    "terms": {
+      "title": "Términos de servicio",
+      "lastUpdated": "Última actualización: {{date}}"
+    }
+  },
+  "toast": {
+    "bookmarkCreated": "Marcador creado",
+    "bookmarkUpdated": "Marcador actualizado",
+    "bookmarkDeleted": "Marcador eliminado",
+    "bookmarkArchived": "Marcador archivado",
+    "bookmarkUnarchived": "Marcador restaurado",
+    "collectionCreated": "Colección creada",
+    "collectionUpdated": "Colección actualizada",
+    "collectionDeleted": "Colección eliminada",
+    "categoryCreated": "Categoría creada",
+    "categoryUpdated": "Categoría actualizada",
+    "categoryDeleted": "Categoría eliminada",
+    "tagCreated": "Etiqueta creada",
+    "tagUpdated": "Etiqueta actualizada",
+    "tagDeleted": "Etiqueta eliminada",
+    "linkCopied": "Enlace copiado al portapapeles",
+    "settingsSaved": "Configuración guardada",
+    "profileUpdated": "Perfil actualizado",
+    "exportReady": "Exportación lista para descargar",
+    "error": "Ocurrió un error"
+  },
+  "time": {
+    "justNow": "Ahora mismo",
+    "minutesAgo": "Hace {{count}} minuto",
+    "minutesAgo_other": "Hace {{count}} minutos",
+    "hoursAgo": "Hace {{count}} hora",
+    "hoursAgo_other": "Hace {{count}} horas",
+    "daysAgo": "Hace {{count}} día",
+    "daysAgo_other": "Hace {{count}} días",
+    "weeksAgo": "Hace {{count}} semana",
+    "weeksAgo_other": "Hace {{count}} semanas",
+    "monthsAgo": "Hace {{count}} mes",
+    "monthsAgo_other": "Hace {{count}} meses",
+    "yearsAgo": "Hace {{count}} año",
+    "yearsAgo_other": "Hace {{count}} años"
+  }
+}

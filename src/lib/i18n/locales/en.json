@@ -1,0 +1,502 @@
+{
+  "common": {
+    "appName": "BookMind",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "add": "Add",
+    "remove": "Remove",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "confirm": "Confirm",
+    "submit": "Submit",
+    "reset": "Reset",
+    "clear": "Clear",
+    "copy": "Copy",
+    "share": "Share",
+    "export": "Export",
+    "import": "Import",
+    "download": "Download",
+    "upload": "Upload",
+    "refresh": "Refresh",
+    "retry": "Retry",
+    "yes": "Yes",
+    "no": "No",
+    "or": "or",
+    "and": "and",
+    "all": "All",
+    "none": "None",
+    "other": "Other",
+    "more": "More",
+    "less": "Less",
+    "show": "Show",
+    "hide": "Hide",
+    "view": "View",
+    "viewAll": "View all",
+    "seeMore": "See more",
+    "seeLess": "See less",
+    "noResults": "No results found",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Info"
+  },
+  "nav": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "bookmarks": "Bookmarks",
+    "collections": "Collections",
+    "categories": "Categories",
+    "tags": "Tags",
+    "archive": "Archive",
+    "favorites": "Favorites",
+    "stats": "Statistics",
+    "settings": "Settings",
+    "profile": "Profile",
+    "export": "Export",
+    "logout": "Log out",
+    "login": "Log in",
+    "signup": "Sign up"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Sign in to your account",
+      "email": "Email",
+      "password": "Password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "submit": "Sign in",
+      "noAccount": "Don't have an account?",
+      "signupLink": "Sign up"
+    },
+    "signup": {
+      "title": "Create an account",
+      "subtitle": "Start organizing your bookmarks",
+      "name": "Full name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "acceptTerms": "I accept the",
+      "termsLink": "Terms of Service",
+      "privacyLink": "Privacy Policy",
+      "submit": "Create account",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Sign in"
+    },
+    "forgotPassword": {
+      "title": "Forgot password?",
+      "subtitle": "Enter your email to reset your password",
+      "email": "Email",
+      "submit": "Send reset link",
+      "backToLogin": "Back to login",
+      "success": "Check your email for a reset link"
+    },
+    "resetPassword": {
+      "title": "Reset password",
+      "subtitle": "Enter your new password",
+      "password": "New password",
+      "confirmPassword": "Confirm new password",
+      "submit": "Reset password",
+      "success": "Password reset successfully"
+    },
+    "social": {
+      "continueWith": "Or continue with",
+      "google": "Google",
+      "github": "GitHub"
+    },
+    "errors": {
+      "invalidCredentials": "Invalid email or password",
+      "emailInUse": "Email is already in use",
+      "weakPassword": "Password is too weak",
+      "passwordMismatch": "Passwords do not match",
+      "invalidToken": "Invalid or expired token",
+      "generic": "An error occurred. Please try again."
+    }
+  },
+  "bookmarks": {
+    "title": "Bookmarks",
+    "newBookmark": "New Bookmark",
+    "editBookmark": "Edit Bookmark",
+    "deleteBookmark": "Delete Bookmark",
+    "deleteConfirm": "Are you sure you want to delete this bookmark?",
+    "form": {
+      "url": "URL",
+      "urlPlaceholder": "https://example.com",
+      "title": "Title",
+      "titlePlaceholder": "Bookmark title",
+      "description": "Description",
+      "descriptionPlaceholder": "Brief description of the bookmark",
+      "notes": "Notes",
+      "notesPlaceholder": "Your personal notes",
+      "category": "Category",
+      "selectCategory": "Select a category",
+      "tags": "Tags",
+      "tagsPlaceholder": "Add tags...",
+      "collections": "Collections",
+      "selectCollections": "Select collections",
+      "isPublic": "Make public",
+      "isFavorite": "Add to favorites"
+    },
+    "card": {
+      "visit": "Visit",
+      "copyLink": "Copy link",
+      "addToCollection": "Add to collection",
+      "archive": "Archive",
+      "unarchive": "Unarchive",
+      "favorite": "Favorite",
+      "unfavorite": "Remove from favorites"
+    },
+    "filters": {
+      "all": "All bookmarks",
+      "favorites": "Favorites",
+      "archived": "Archived",
+      "public": "Public",
+      "private": "Private",
+      "hasAiSummary": "Has AI summary",
+      "noCategory": "Uncategorized"
+    },
+    "sort": {
+      "newest": "Newest first",
+      "oldest": "Oldest first",
+      "titleAsc": "Title (A-Z)",
+      "titleDesc": "Title (Z-A)",
+      "mostVisited": "Most visited"
+    },
+    "empty": {
+      "title": "No bookmarks yet",
+      "description": "Start saving your favorite links",
+      "action": "Add your first bookmark"
+    },
+    "searchEmpty": {
+      "title": "No bookmarks found",
+      "description": "Try adjusting your search or filters"
+    }
+  },
+  "collections": {
+    "title": "Collections",
+    "newCollection": "New Collection",
+    "editCollection": "Edit Collection",
+    "deleteCollection": "Delete Collection",
+    "deleteConfirm": "Are you sure you want to delete this collection? Bookmarks will not be deleted.",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Collection name",
+      "description": "Description",
+      "descriptionPlaceholder": "What's this collection about?",
+      "parent": "Parent collection",
+      "selectParent": "Select parent (optional)",
+      "noParent": "No parent"
+    },
+    "share": {
+      "title": "Share Collection",
+      "description": "Share this collection with others",
+      "generateLink": "Generate share link",
+      "copyLink": "Copy link",
+      "linkCopied": "Link copied to clipboard",
+      "revokeLink": "Revoke link",
+      "revokeConfirm": "Are you sure? Existing links will stop working."
+    },
+    "empty": {
+      "title": "No collections yet",
+      "description": "Organize your bookmarks into collections",
+      "action": "Create your first collection"
+    }
+  },
+  "categories": {
+    "title": "Categories",
+    "newCategory": "New Category",
+    "editCategory": "Edit Category",
+    "deleteCategory": "Delete Category",
+    "deleteConfirm": "Are you sure you want to delete this category? Bookmarks will become uncategorized.",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Category name",
+      "color": "Color",
+      "selectColor": "Select a color",
+      "icon": "Icon",
+      "selectIcon": "Select an icon"
+    },
+    "default": {
+      "development": "Development",
+      "design": "Design",
+      "business": "Business",
+      "marketing": "Marketing",
+      "education": "Education",
+      "entertainment": "Entertainment",
+      "other": "Other"
+    },
+    "empty": {
+      "title": "No categories yet",
+      "description": "Categories help classify your bookmarks",
+      "action": "Create your first category"
+    }
+  },
+  "tags": {
+    "title": "Tags",
+    "newTag": "New Tag",
+    "editTag": "Edit Tag",
+    "deleteTag": "Delete Tag",
+    "deleteConfirm": "Are you sure you want to delete this tag? It will be removed from all bookmarks.",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Tag name (lowercase)",
+      "color": "Color"
+    },
+    "popular": "Popular tags",
+    "empty": {
+      "title": "No tags yet",
+      "description": "Tags help you find bookmarks quickly",
+      "action": "Add tags to your bookmarks"
+    }
+  },
+  "search": {
+    "placeholder": "Search bookmarks...",
+    "semantic": "Smart search",
+    "semanticTooltip": "Use AI to find bookmarks by meaning",
+    "results": "{{count}} result found",
+    "results_other": "{{count}} results found",
+    "noResults": "No results found",
+    "suggestions": "Suggestions",
+    "recent": "Recent searches"
+  },
+  "ai": {
+    "summary": {
+      "title": "AI Summary",
+      "regenerate": "Regenerate",
+      "generating": "Generating summary...",
+      "error": "Failed to generate summary",
+      "empty": "No summary available"
+    },
+    "tags": {
+      "title": "Suggested Tags",
+      "accept": "Accept",
+      "dismiss": "Dismiss",
+      "acceptAll": "Accept all",
+      "generating": "Suggesting tags..."
+    },
+    "category": {
+      "title": "Suggested Category",
+      "confidence": "{{percent}}% confidence",
+      "accept": "Accept",
+      "dismiss": "Dismiss",
+      "alternatives": "Alternatives"
+    },
+    "processing": "AI is processing..."
+  },
+  "stats": {
+    "title": "Statistics",
+    "overview": "Overview",
+    "totalBookmarks": "Total Bookmarks",
+    "totalCollections": "Collections",
+    "totalCategories": "Categories",
+    "totalTags": "Tags",
+    "thisMonth": "+{{count}} this month",
+    "growth": "Growth",
+    "fromLastMonth": "From last month",
+    "categoryDistribution": "Category Distribution",
+    "topTags": "Top Tags",
+    "recentActivity": "Recent Activity",
+    "bookmarksPerDay": "Bookmarks per day"
+  },
+  "export": {
+    "title": "Export Data",
+    "description": "Download your bookmarks in various formats",
+    "format": "Format",
+    "formats": {
+      "json": "JSON",
+      "jsonDesc": "Full data with all details",
+      "html": "HTML (Netscape)",
+      "htmlDesc": "Compatible with all browsers",
+      "csv": "CSV",
+      "csvDesc": "Open in spreadsheets"
+    },
+    "options": {
+      "includeArchived": "Include archived bookmarks",
+      "includeTags": "Include tags",
+      "includeNotes": "Include notes"
+    },
+    "preview": "Preview",
+    "download": "Download",
+    "success": "Export downloaded successfully"
+  },
+  "settings": {
+    "title": "Settings",
+    "appearance": {
+      "title": "Appearance",
+      "theme": "Theme",
+      "themes": {
+        "light": "Light",
+        "dark": "Dark",
+        "system": "System"
+      },
+      "language": "Language"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "email": "Email notifications",
+      "browser": "Browser notifications"
+    },
+    "data": {
+      "title": "Data Management",
+      "export": "Export all data",
+      "import": "Import bookmarks",
+      "delete": "Delete account",
+      "deleteWarning": "This action cannot be undone. All your data will be permanently deleted."
+    }
+  },
+  "profile": {
+    "title": "Profile Settings",
+    "form": {
+      "name": "Name",
+      "username": "Username",
+      "email": "Email",
+      "bio": "Bio",
+      "bioPlaceholder": "Tell us about yourself",
+      "avatar": "Avatar",
+      "changeAvatar": "Change avatar"
+    },
+    "public": {
+      "title": "Public Profile",
+      "bookmarks": "{{count}} public bookmark",
+      "bookmarks_other": "{{count}} public bookmarks",
+      "joinedDate": "Joined {{date}}"
+    }
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Welcome to BookMind",
+      "description": "Your intelligent bookmark manager powered by AI"
+    },
+    "features": {
+      "title": "Key Features",
+      "description": "Discover what BookMind can do for you"
+    },
+    "organize": {
+      "title": "Stay Organized",
+      "description": "Use collections, categories, and tags to keep your bookmarks tidy"
+    },
+    "ai": {
+      "title": "AI-Powered",
+      "description": "Get automatic summaries and smart tag suggestions"
+    },
+    "skip": "Skip",
+    "getStarted": "Get Started",
+    "complete": "Complete"
+  },
+  "errors": {
+    "404": {
+      "title": "Page not found",
+      "description": "The page you're looking for doesn't exist or has been moved.",
+      "backHome": "Back to home"
+    },
+    "500": {
+      "title": "Something went wrong",
+      "description": "An unexpected error occurred. Please try again.",
+      "retry": "Try again"
+    },
+    "network": {
+      "title": "Connection error",
+      "description": "Please check your internet connection and try again."
+    },
+    "unauthorized": {
+      "title": "Unauthorized",
+      "description": "You need to be logged in to access this page."
+    },
+    "forbidden": {
+      "title": "Access denied",
+      "description": "You don't have permission to access this resource."
+    }
+  },
+  "landing": {
+    "hero": {
+      "title": "Your bookmarks, intelligently organized",
+      "subtitle": "BookMind uses AI to automatically categorize, summarize, and help you rediscover your saved links.",
+      "cta": "Get Started Free",
+      "secondary": "Learn more"
+    },
+    "features": {
+      "title": "Everything you need to manage bookmarks",
+      "ai": {
+        "title": "AI-Powered Organization",
+        "description": "Automatic summaries, tag suggestions, and smart categorization"
+      },
+      "collections": {
+        "title": "Flexible Collections",
+        "description": "Organize bookmarks into nested collections with sharing options"
+      },
+      "search": {
+        "title": "Semantic Search",
+        "description": "Find bookmarks by meaning, not just keywords"
+      },
+      "export": {
+        "title": "Easy Export",
+        "description": "Export to JSON, HTML, or CSV anytime"
+      }
+    },
+    "stats": {
+      "bookmarks": "Bookmarks saved",
+      "users": "Happy users",
+      "searches": "Searches performed"
+    },
+    "cta": {
+      "title": "Ready to organize your bookmarks?",
+      "subtitle": "Start for free. No credit card required.",
+      "button": "Create free account"
+    }
+  },
+  "legal": {
+    "privacy": {
+      "title": "Privacy Policy",
+      "lastUpdated": "Last updated: {{date}}"
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "lastUpdated": "Last updated: {{date}}"
+    }
+  },
+  "toast": {
+    "bookmarkCreated": "Bookmark created",
+    "bookmarkUpdated": "Bookmark updated",
+    "bookmarkDeleted": "Bookmark deleted",
+    "bookmarkArchived": "Bookmark archived",
+    "bookmarkUnarchived": "Bookmark restored",
+    "collectionCreated": "Collection created",
+    "collectionUpdated": "Collection updated",
+    "collectionDeleted": "Collection deleted",
+    "categoryCreated": "Category created",
+    "categoryUpdated": "Category updated",
+    "categoryDeleted": "Category deleted",
+    "tagCreated": "Tag created",
+    "tagUpdated": "Tag updated",
+    "tagDeleted": "Tag deleted",
+    "linkCopied": "Link copied to clipboard",
+    "settingsSaved": "Settings saved",
+    "profileUpdated": "Profile updated",
+    "exportReady": "Export ready for download",
+    "error": "An error occurred"
+  },
+  "time": {
+    "justNow": "Just now",
+    "minutesAgo": "{{count}} minute ago",
+    "minutesAgo_other": "{{count}} minutes ago",
+    "hoursAgo": "{{count}} hour ago",
+    "hoursAgo_other": "{{count}} hours ago",
+    "daysAgo": "{{count}} day ago",
+    "daysAgo_other": "{{count}} days ago",
+    "weeksAgo": "{{count}} week ago",
+    "weeksAgo_other": "{{count}} weeks ago",
+    "monthsAgo": "{{count}} month ago",
+    "monthsAgo_other": "{{count}} months ago",
+    "yearsAgo": "{{count}} year ago",
+    "yearsAgo_other": "{{count}} years ago"
+  }
+}
