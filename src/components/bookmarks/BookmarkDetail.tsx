@@ -15,13 +15,12 @@ import {
   GlobeIcon,
   HashIcon,
   PencilIcon,
-  RefreshCwIcon,
-  SparklesIcon,
   StarIcon,
   TagIcon,
   TrashIcon,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { AiSummary } from "@/components/ai";
 import {
   BookmarkDetailSkeleton,
   Favicon,
@@ -29,7 +28,6 @@ import {
 } from "@/components/shared";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import type { Bookmark } from "@/lib/api-client";
 import { cn } from "@/lib/utils";
@@ -177,40 +175,13 @@ export function BookmarkDetail({
 
       {/* AI Summary */}
       {(bookmark.aiSummary || onRegenerateAI) && (
-        <Card>
-          <CardHeader className="pb-3">
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-sm font-semibold flex items-center gap-2">
-                <SparklesIcon className="h-4 w-4 text-primary" />
-                AI Summary
-              </CardTitle>
-              {onRegenerateAI && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={onRegenerateAI}
-                  disabled={isRegeneratingAI}
-                >
-                  <RefreshCwIcon
-                    className={cn(
-                      "h-4 w-4",
-                      isRegeneratingAI && "animate-spin",
-                    )}
-                  />
-                </Button>
-              )}
-            </div>
-          </CardHeader>
-          <CardContent>
-            {bookmark.aiSummary ? (
-              <p className="text-sm">{bookmark.aiSummary}</p>
-            ) : (
-              <p className="text-sm text-muted-foreground italic">
-                No AI summary yet. Click refresh to generate.
-              </p>
-            )}
-          </CardContent>
-        </Card>
+        <AiSummary
+          summary={bookmark.aiSummary}
+          isRegenerating={isRegeneratingAI}
+          onRegenerate={onRegenerateAI}
+          showRegenerate={!!onRegenerateAI}
+          placeholder="No AI summary yet. Click regenerate to generate."
+        />
       )}
 
       {/* Notes */}
