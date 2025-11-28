@@ -29,6 +29,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCategories } from "@/hooks/use-categories";
 import { useCollectionTree } from "@/hooks/use-collections";
+import { useI18n } from "@/hooks/use-i18n";
 import { cn } from "@/lib/utils";
 import { useUIStore } from "@/stores/ui-store";
 
@@ -76,6 +77,7 @@ function CollectionNode({
   level?: number;
 }) {
   const location = useLocation();
+  const { t } = useI18n();
   const [isOpen, setIsOpen] = useState(level === 0);
   const isActive = location.pathname === `/collections/${collection.id}`;
   const hasChildren = collection.children.length > 0;
@@ -117,7 +119,7 @@ function CollectionNode({
             )}
             style={{ paddingLeft: `${(level + 1) * 12 + 12}px` }}
           >
-            <span className="text-xs">View all</span>
+            <span className="text-xs">{t("common.viewAll")}</span>
           </Link>
           {collection.children.map((child) => (
             <CollectionNode
@@ -163,6 +165,7 @@ function SidebarSkeleton() {
 
 export function Sidebar() {
   const location = useLocation();
+  const { t } = useI18n();
   const { sidebarOpen, openModal } = useUIStore();
   const { data: categoriesData, isLoading: loadingCategories } =
     useCategories();
@@ -186,31 +189,31 @@ export function Sidebar() {
           {/* Quick Links */}
           <div className="px-3 py-2">
             <h3 className="mb-2 px-4 text-xs font-semibold uppercase text-muted-foreground">
-              Quick Links
+              {t("sidebar.quickLinks")}
             </h3>
             <nav className="space-y-1">
               <NavItem
                 href="/"
                 icon={<HomeIcon className="h-4 w-4" />}
-                label="Dashboard"
+                label={t("nav.dashboard")}
                 active={location.pathname === "/"}
               />
               <NavItem
                 href="/bookmarks"
                 icon={<BookmarkIcon className="h-4 w-4" />}
-                label="All Bookmarks"
+                label={t("nav.bookmarks")}
                 active={location.pathname === "/bookmarks"}
               />
               <NavItem
                 href="/bookmarks?filter=pinned"
                 icon={<StarIcon className="h-4 w-4" />}
-                label="Favorites"
+                label={t("nav.favorites")}
                 active={location.search.includes("filter=pinned")}
               />
               <NavItem
                 href="/bookmarks?filter=archived"
                 icon={<ArchiveIcon className="h-4 w-4" />}
-                label="Archive"
+                label={t("nav.archive")}
                 active={location.search.includes("filter=archived")}
               />
             </nav>
@@ -233,7 +236,7 @@ export function Sidebar() {
                     ) : (
                       <ChevronRightIcon className="h-3 w-3" />
                     )}
-                    Categories
+                    {t("nav.categories")}
                   </button>
                 </CollapsibleTrigger>
                 <Button
@@ -241,7 +244,7 @@ export function Sidebar() {
                   size="icon"
                   className="h-6 w-6"
                   onClick={() => openModal("create-category")}
-                  aria-label="Create category"
+                  aria-label={t("categories.newCategory")}
                 >
                   <PlusIcon className="h-4 w-4" />
                 </Button>
@@ -252,7 +255,7 @@ export function Sidebar() {
                     <SidebarSkeleton />
                   ) : categories.length === 0 ? (
                     <p className="px-4 py-2 text-sm text-muted-foreground">
-                      No categories yet
+                      {t("categories.empty.title")}
                     </p>
                   ) : (
                     categories.map((category) => (
@@ -294,7 +297,7 @@ export function Sidebar() {
                     ) : (
                       <ChevronRightIcon className="h-3 w-3" />
                     )}
-                    Collections
+                    {t("nav.collections")}
                   </button>
                 </CollapsibleTrigger>
                 <Button
@@ -302,7 +305,7 @@ export function Sidebar() {
                   size="icon"
                   className="h-6 w-6"
                   onClick={() => openModal("create-collection")}
-                  aria-label="Create collection"
+                  aria-label={t("collections.newCollection")}
                 >
                   <PlusIcon className="h-4 w-4" />
                 </Button>
@@ -313,7 +316,7 @@ export function Sidebar() {
                     <SidebarSkeleton />
                   ) : collections.length === 0 ? (
                     <p className="px-4 py-2 text-sm text-muted-foreground">
-                      No collections yet
+                      {t("collections.empty.title")}
                     </p>
                   ) : (
                     collections.map((collection) => (
@@ -331,13 +334,13 @@ export function Sidebar() {
           {/* Tags link */}
           <div className="px-3 py-2">
             <h3 className="mb-2 px-4 text-xs font-semibold uppercase text-muted-foreground">
-              Organization
+              {t("sidebar.organization")}
             </h3>
             <nav className="space-y-1">
               <NavItem
                 href="/tags"
                 icon={<TagIcon className="h-4 w-4" />}
-                label="All Tags"
+                label={t("nav.tags")}
                 active={location.pathname === "/tags"}
               />
             </nav>
