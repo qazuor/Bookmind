@@ -212,7 +212,7 @@ export function CategoryGrid({
         )}
       >
         {Array.from({ length: 6 }).map((_, i) => (
-          <Card key={i} className="animate-pulse">
+          <Card key={`category-skeleton-${i}`} className="animate-pulse">
             <CardContent className="pt-6">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-muted" />
