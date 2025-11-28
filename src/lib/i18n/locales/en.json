@@ -66,6 +66,10 @@
     "login": "Log in",
     "signup": "Sign up"
   },
+  "sidebar": {
+    "quickLinks": "Quick Links",
+    "organization": "Organization"
+  },
   "auth": {
     "login": {
       "title": "Welcome back",
@@ -75,6 +79,7 @@
       "rememberMe": "Remember me",
       "forgotPassword": "Forgot password?",
       "submit": "Sign in",
+      "submitting": "Signing in...",
       "noAccount": "Don't have an account?",
       "signupLink": "Sign up"
     },
@@ -82,13 +87,16 @@
       "title": "Create an account",
       "subtitle": "Start organizing your bookmarks",
       "name": "Full name",
+      "nameOptional": "Name (optional)",
       "email": "Email",
       "password": "Password",
+      "passwordHint": "Must be at least 8 characters with uppercase, lowercase, and number",
       "confirmPassword": "Confirm password",
-      "acceptTerms": "I accept the",
+      "acceptTerms": "I agree to the",
       "termsLink": "Terms of Service",
       "privacyLink": "Privacy Policy",
       "submit": "Create account",
+      "submitting": "Creating account...",
       "hasAccount": "Already have an account?",
       "loginLink": "Sign in"
     },
@@ -116,10 +124,20 @@
     "errors": {
       "invalidCredentials": "Invalid email or password",
       "emailInUse": "Email is already in use",
-      "weakPassword": "Password is too weak",
+      "weakPassword": "Password must contain at least one lowercase letter, one uppercase letter, and one number",
       "passwordMismatch": "Passwords do not match",
       "invalidToken": "Invalid or expired token",
-      "generic": "An error occurred. Please try again."
+      "generic": "An error occurred. Please try again.",
+      "emailRequired": "Email is required",
+      "invalidEmail": "Invalid email address",
+      "passwordRequired": "Password is required",
+      "passwordTooShort": "Password must be at least 8 characters",
+      "passwordTooLong": "Password must be less than 100 characters",
+      "confirmPasswordRequired": "Please confirm your password",
+      "nameRequired": "Name is required",
+      "nameTooShort": "Name must be at least 2 characters",
+      "nameTooLong": "Name must be less than 100 characters",
+      "termsRequired": "You must accept the terms and conditions"
     }
   },
   "bookmarks": {
@@ -425,17 +443,42 @@
     },
     "features": {
       "title": "Everything you need to manage bookmarks",
-      "ai": {
-        "title": "AI-Powered Organization",
-        "description": "Automatic summaries, tag suggestions, and smart categorization"
+      "subtitle": "Powerful features to help you save, organize, and find your bookmarks effortlessly.",
+      "aiSummaries": {
+        "title": "AI Summaries",
+        "description": "Get automatic AI-generated summaries for every bookmark you save"
+      },
+      "smartTags": {
+        "title": "Smart Tags",
+        "description": "AI suggests relevant tags based on content analysis"
       },
       "collections": {
         "title": "Flexible Collections",
         "description": "Organize bookmarks into nested collections with sharing options"
       },
+      "tagging": {
+        "title": "Custom Tagging",
+        "description": "Create and manage your own tags for precise organization"
+      },
       "search": {
         "title": "Semantic Search",
         "description": "Find bookmarks by meaning, not just keywords"
+      },
+      "sharing": {
+        "title": "Easy Sharing",
+        "description": "Share collections and bookmarks with friends and colleagues"
+      },
+      "cloudSync": {
+        "title": "Cloud Sync",
+        "description": "Access your bookmarks from any device, anywhere"
+      },
+      "importExport": {
+        "title": "Import & Export",
+        "description": "Import from browsers or export to JSON, HTML, or CSV"
+      },
+      "ai": {
+        "title": "AI-Powered Organization",
+        "description": "Automatic summaries, tag suggestions, and smart categorization"
       },
       "export": {
         "title": "Easy Export",
@@ -451,6 +494,9 @@
       "title": "Ready to organize your bookmarks?",
       "subtitle": "Start for free. No credit card required.",
       "button": "Create free account"
+    },
+    "footer": {
+      "rights": "All rights reserved."
     }
   },
   "legal": {

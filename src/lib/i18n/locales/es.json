@@ -66,6 +66,10 @@
     "login": "Iniciar sesión",
     "signup": "Registrarse"
   },
+  "sidebar": {
+    "quickLinks": "Accesos Rápidos",
+    "organization": "Organización"
+  },
   "auth": {
     "login": {
       "title": "Bienvenido de nuevo",
@@ -75,6 +79,7 @@
       "rememberMe": "Recordarme",
       "forgotPassword": "¿Olvidaste tu contraseña?",
       "submit": "Iniciar sesión",
+      "submitting": "Iniciando sesión...",
       "noAccount": "¿No tienes una cuenta?",
       "signupLink": "Regístrate"
     },
@@ -82,13 +87,16 @@
       "title": "Crear una cuenta",
       "subtitle": "Comienza a organizar tus marcadores",
       "name": "Nombre completo",
+      "nameOptional": "Nombre (opcional)",
       "email": "Correo electrónico",
       "password": "Contraseña",
+      "passwordHint": "Debe tener al menos 8 caracteres con mayúscula, minúscula y número",
       "confirmPassword": "Confirmar contraseña",
       "acceptTerms": "Acepto los",
       "termsLink": "Términos de servicio",
       "privacyLink": "Política de privacidad",
       "submit": "Crear cuenta",
+      "submitting": "Creando cuenta...",
       "hasAccount": "¿Ya tienes una cuenta?",
       "loginLink": "Inicia sesión"
     },
@@ -116,10 +124,20 @@
     "errors": {
       "invalidCredentials": "Correo o contraseña inválidos",
       "emailInUse": "El correo ya está en uso",
-      "weakPassword": "La contraseña es muy débil",
+      "weakPassword": "La contraseña debe contener al menos una letra minúscula, una mayúscula y un número",
       "passwordMismatch": "Las contraseñas no coinciden",
       "invalidToken": "Token inválido o expirado",
-      "generic": "Ocurrió un error. Por favor intenta de nuevo."
+      "generic": "Ocurrió un error. Por favor intenta de nuevo.",
+      "emailRequired": "El correo es requerido",
+      "invalidEmail": "Dirección de correo inválida",
+      "passwordRequired": "La contraseña es requerida",
+      "passwordTooShort": "La contraseña debe tener al menos 8 caracteres",
+      "passwordTooLong": "La contraseña debe tener menos de 100 caracteres",
+      "confirmPasswordRequired": "Por favor confirma tu contraseña",
+      "nameRequired": "El nombre es requerido",
+      "nameTooShort": "El nombre debe tener al menos 2 caracteres",
+      "nameTooLong": "El nombre debe tener menos de 100 caracteres",
+      "termsRequired": "Debes aceptar los términos y condiciones"
     }
   },
   "bookmarks": {
@@ -425,17 +443,42 @@
     },
     "features": {
       "title": "Todo lo que necesitas para gestionar marcadores",
-      "ai": {
-        "title": "Organización con IA",
-        "description": "Resúmenes automáticos, sugerencias de etiquetas y categorización inteligente"
+      "subtitle": "Funciones potentes para ayudarte a guardar, organizar y encontrar tus marcadores sin esfuerzo.",
+      "aiSummaries": {
+        "title": "Resúmenes con IA",
+        "description": "Obtén resúmenes automáticos generados por IA para cada marcador que guardes"
+      },
+      "smartTags": {
+        "title": "Etiquetas inteligentes",
+        "description": "La IA sugiere etiquetas relevantes basadas en el análisis del contenido"
       },
       "collections": {
         "title": "Colecciones flexibles",
         "description": "Organiza marcadores en colecciones anidadas con opciones para compartir"
       },
+      "tagging": {
+        "title": "Etiquetado personalizado",
+        "description": "Crea y gestiona tus propias etiquetas para una organización precisa"
+      },
       "search": {
         "title": "Búsqueda semántica",
         "description": "Encuentra marcadores por significado, no solo por palabras clave"
+      },
+      "sharing": {
+        "title": "Compartir fácil",
+        "description": "Comparte colecciones y marcadores con amigos y colegas"
+      },
+      "cloudSync": {
+        "title": "Sincronización en la nube",
+        "description": "Accede a tus marcadores desde cualquier dispositivo, en cualquier lugar"
+      },
+      "importExport": {
+        "title": "Importar y exportar",
+        "description": "Importa desde navegadores o exporta a JSON, HTML o CSV"
+      },
+      "ai": {
+        "title": "Organización con IA",
+        "description": "Resúmenes automáticos, sugerencias de etiquetas y categorización inteligente"
       },
       "export": {
         "title": "Exportación fácil",
@@ -451,6 +494,9 @@
       "title": "¿Listo para organizar tus marcadores?",
       "subtitle": "Comienza gratis. No requiere tarjeta de crédito.",
       "button": "Crear cuenta gratis"
+    },
+    "footer": {
+      "rights": "Todos los derechos reservados."
     }
   },
   "legal": {
