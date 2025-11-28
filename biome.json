@@ -157,11 +157,14 @@
       "suspicious": {
         "noExplicitAny": "error",
         "noConsole": "warn",
-        "noConfusingVoidType": "off"
+        "noConfusingVoidType": "off",
+        "noArrayIndexKey": "warn"
       },
       "a11y": {
         "useButtonType": "warn",
-        "useAltText": "error"
+        "useAltText": "error",
+        "noStaticElementInteractions": "warn",
+        "useKeyWithClickEvents": "warn"
       },
       "performance": {
         "noAccumulatingSpread": "warn",
