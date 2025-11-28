@@ -12,6 +12,7 @@ import {
   TagIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useI18n } from "@/hooks/use-i18n";
 import { cn } from "@/lib/utils";
 
 type EmptyStateType =
@@ -34,34 +35,42 @@ interface EmptyStateProps {
   className?: string;
 }
 
-const defaultContent: Record<
+const defaultIcons: Record<
   Exclude<EmptyStateType, "custom">,
-  { icon: React.ReactNode; title: string; description: string }
+  React.ReactNode
 > = {
+  bookmarks: <BookmarkIcon className="h-12 w-12 text-muted-foreground/50" />,
+  categories: <HashIcon className="h-12 w-12 text-muted-foreground/50" />,
+  collections: <FolderIcon className="h-12 w-12 text-muted-foreground/50" />,
+  tags: <TagIcon className="h-12 w-12 text-muted-foreground/50" />,
+  search: <SearchIcon className="h-12 w-12 text-muted-foreground/50" />,
+};
+
+type TranslationKeys = Record<
+  Exclude<EmptyStateType, "custom">,
+  { titleKey: string; descriptionKey: string }
+>;
+
+const translationKeys: TranslationKeys = {
   bookmarks: {
-    icon: <BookmarkIcon className="h-12 w-12 text-muted-foreground/50" />,
-    title: "No bookmarks yet",
-    description: "Save your first bookmark to get started organizing your web.",
+    titleKey: "bookmarks.empty.title",
+    descriptionKey: "bookmarks.empty.description",
   },
   categories: {
-    icon: <HashIcon className="h-12 w-12 text-muted-foreground/50" />,
-    title: "No categories",
-    description: "Create categories to organize your bookmarks by topic.",
+    titleKey: "categories.empty.title",
+    descriptionKey: "categories.empty.description",
   },
   collections: {
-    icon: <FolderIcon className="h-12 w-12 text-muted-foreground/50" />,
-    title: "No collections",
-    description: "Create collections to group related bookmarks together.",
+    titleKey: "collections.empty.title",
+    descriptionKey: "collections.empty.description",
   },
   tags: {
-    icon: <TagIcon className="h-12 w-12 text-muted-foreground/50" />,
-    title: "No tags",
-    description: "Add tags to your bookmarks for easy filtering.",
+    titleKey: "tags.empty.title",
+    descriptionKey: "tags.empty.description",
   },
   search: {
-    icon: <SearchIcon className="h-12 w-12 text-muted-foreground/50" />,
-    title: "No results found",
-    description: "Try adjusting your search terms or filters.",
+    titleKey: "search.noResults",
+    descriptionKey: "bookmarks.searchEmpty.description",
   },
 };
 
@@ -73,11 +82,14 @@ export function EmptyState({
   icon,
   className,
 }: EmptyStateProps) {
-  const content = type !== "custom" ? defaultContent[type] : null;
-  const displayIcon = icon ?? content?.icon;
-  const displayTitle = title ?? content?.title ?? "Nothing here";
+  const { t } = useI18n();
+
+  const keys = type !== "custom" ? translationKeys[type] : null;
+  const displayIcon = icon ?? (type !== "custom" ? defaultIcons[type] : null);
+  const displayTitle =
+    title ?? (keys ? t(keys.titleKey) : t("common.noResults"));
   const displayDescription =
-    description ?? content?.description ?? "No items to display.";
+    description ?? (keys ? t(keys.descriptionKey) : t("common.noResults"));
 
   return (
     <div
