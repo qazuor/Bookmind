@@ -18,17 +18,27 @@ export const auth = betterAuth({
   // Base configuration
   secret: process.env.BETTER_AUTH_SECRET,
   baseURL: process.env.BETTER_AUTH_URL || "http://localhost:5173",
+  trustedOrigins: [
+    "http://localhost:5173",
+    "http://localhost:3001",
+    process.env.BETTER_AUTH_URL || "",
+  ].filter(Boolean),
 
   // Database adapter with Drizzle
   database: drizzleAdapter(db, {
     provider: "pg",
     schema: {
+      // Tables
       ...schema,
       // Map our table names to Better Auth's expected names
       user: schema.users,
       account: schema.accounts,
       session: schema.sessions,
       verification: schema.verificationTokens,
+      // Relations (required for experimental joins)
+      userRelations: schema.usersRelations,
+      accountRelations: schema.accountsRelations,
+      sessionRelations: schema.sessionsRelations,
     },
   }),
 

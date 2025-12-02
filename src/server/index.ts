@@ -3,12 +3,9 @@
  *
  * Starts the HTTP server for local development.
  * For production (Vercel), use the Vercel adapter.
+ *
+ * Note: Environment variables are loaded via tsx --env-file flag
  */
-
-// Load environment variables first
-import { config } from "dotenv";
-
-config({ path: ".env.local" });
 
 import { serve } from "@hono/node-server";
 import { app } from "./app";
