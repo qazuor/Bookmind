@@ -115,6 +115,23 @@
           }
         }
       }
+    },
+    {
+      "includes": ["api/auth/\\[...all\\].ts"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noConsole": "off"
+          }
+        }
+      },
+      "assist": {
+        "actions": {
+          "source": {
+            "organizeImports": "off"
+          }
+        }
+      }
     }
   ],
   "formatter": {
