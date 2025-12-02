@@ -16,7 +16,11 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { BookmarkGrid } from "@/components/bookmarks/BookmarkGrid";
 import { BookmarkList } from "@/components/bookmarks/BookmarkList";
-import { StatCardSkeleton, ViewModeToggle } from "@/components/shared";
+import {
+  EmptyState,
+  StatCardSkeleton,
+  ViewModeToggle,
+} from "@/components/shared";
 import { toastError, toastSuccess } from "@/components/shared/toast";
 import { Button } from "@/components/ui/button";
 import {
@@ -205,13 +209,13 @@ export function DashboardPage() {
               <BookmarkList bookmarks={[]} isLoading />
             )
           ) : recentBookmarks.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-12">
-              <BookOpen className="h-12 w-12 text-muted-foreground/50" />
-              <p className="mt-4 text-muted-foreground">No bookmarks yet</p>
-              <Button asChild className="mt-4">
-                <Link to="/bookmarks/new">Add your first bookmark</Link>
-              </Button>
-            </div>
+            <EmptyState
+              type="bookmarks"
+              action={{
+                label: "Add your first bookmark",
+                onClick: () => navigate("/bookmarks/new"),
+              }}
+            />
           ) : viewMode === "grid" ? (
             <BookmarkGrid
               bookmarks={recentBookmarks}

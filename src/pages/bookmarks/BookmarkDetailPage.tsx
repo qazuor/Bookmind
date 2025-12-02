@@ -17,7 +17,7 @@ import {
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { BookmarkForm } from "@/components/bookmarks/BookmarkForm";
-import { DeleteDialog } from "@/components/shared";
+import { BookmarkDetailSkeleton, DeleteDialog } from "@/components/shared";
 import { toastError, toastSuccess } from "@/components/shared/toast";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -29,7 +29,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useBookmark } from "@/hooks/use-bookmark";
 import {
   useArchiveBookmark,
@@ -109,8 +108,7 @@ export function BookmarkDetailPage() {
   if (isLoading) {
     return (
       <div className="container mx-auto max-w-4xl space-y-6 p-6">
-        <Skeleton className="h-8 w-48" />
-        <Skeleton className="h-64 w-full" />
+        <BookmarkDetailSkeleton />
       </div>
     );
   }
