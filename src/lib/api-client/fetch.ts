@@ -2,8 +2,20 @@
  * Fetch Wrapper with Error Handling (P5-006)
  *
  * Centralized fetch utility for all API calls.
- * Handles authentication, error parsing, and response formatting.
+ * Handles authentication, error parsing, CSRF tokens, and response formatting.
  */
+
+import { getCsrfToken } from "@/hooks/use-csrf";
+
+/**
+ * Methods that require CSRF protection
+ */
+const CSRF_PROTECTED_METHODS = ["POST", "PUT", "PATCH", "DELETE"];
+
+/**
+ * CSRF header name (must match server config)
+ */
+const CSRF_HEADER = "x-csrf-token";
 
 /**
  * API error response structure
@@ -142,6 +154,7 @@ export async function apiFetch<T>(
   options: RequestOptions = {},
 ): Promise<T> {
   const { body, params, ...init } = options;
+  const method = (init.method || "GET").toUpperCase();
 
   const url = buildUrl(path, params);
 
@@ -149,6 +162,14 @@ export async function apiFetch<T>(
     "Content-Type": "application/json",
     ...init.headers,
   };
+
+  // Add CSRF token for protected methods
+  if (CSRF_PROTECTED_METHODS.includes(method)) {
+    const csrfToken = getCsrfToken();
+    if (csrfToken) {
+      (headers as Record<string, string>)[CSRF_HEADER] = csrfToken;
+    }
+  }
 
   const response = await fetch(url, {
     ...init,
