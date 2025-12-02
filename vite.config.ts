@@ -42,11 +42,7 @@ export default defineConfig(({ mode }) => ({
         manualChunks: {
           // Vendor chunks
           "react-vendor": ["react", "react-dom", "react-router-dom"],
-          "tanstack-vendor": [
-            "@tanstack/react-query",
-            "@tanstack/react-form",
-            "@tanstack/react-table",
-          ],
+          "tanstack-vendor": ["@tanstack/react-query", "@tanstack/react-form"],
           "ui-vendor": ["lucide-react", "sonner", "framer-motion"],
           // Feature chunks are handled by dynamic imports in lazy.tsx
         },
