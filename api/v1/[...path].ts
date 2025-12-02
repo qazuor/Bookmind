@@ -1047,11 +1047,14 @@ export default async function handler(
     return;
   }
 
-  // Extract path from catch-all parameter
-  const pathParam = req.query.path;
-  const pathSegments = Array.isArray(pathParam) ? pathParam : [pathParam];
-  const path = "/" + pathSegments.filter(Boolean).join("/");
+  // Extract path from URL (more reliable than req.query.path for catch-all routes)
+  // URL format: /api/v1/health?query=value -> extract "/health"
+  const url = req.url || "/";
+  const urlPath = url.split("?")[0]; // Remove query string
+  const path = urlPath.replace(/^\/api\/v1/, "") || "/";
   const method = req.method || "GET";
+
+  console.log(`[API] ${method} ${url} -> path: ${path}`);
 
   // Find matching route
   for (const route of routes) {
