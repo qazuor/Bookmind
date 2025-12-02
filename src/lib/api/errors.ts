@@ -95,8 +95,11 @@ export class MethodNotAllowedError extends ApiError {
  * 409 Conflict - Resource already exists
  */
 export class ConflictError extends ApiError {
-  constructor(message = "Resource already exists") {
-    super(message, 409, "CONFLICT");
+  constructor(
+    message = "Resource already exists",
+    details?: Record<string, unknown>,
+  ) {
+    super(message, 409, "CONFLICT", details);
     this.name = "ConflictError";
   }
 }

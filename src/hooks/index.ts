@@ -31,7 +31,6 @@ export {
   useDeleteCategory,
   useUpdateCategory,
 } from "./use-categories";
-
 // Collection hooks
 export {
   useCollection,
@@ -44,6 +43,8 @@ export {
   useUnshareCollection,
   useUpdateCollection,
 } from "./use-collections";
+// CSRF protection
+export { getCsrfToken, useCsrfToken } from "./use-csrf";
 // Utility hooks
 export { useDebouncedCallback, useDebouncedValue } from "./use-debounced-value";
 // Export hook

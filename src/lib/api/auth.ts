@@ -85,9 +85,9 @@ export async function getUserId(req: ApiRequest): Promise<string | null> {
  * Require authentication middleware
  * Adds userId to the request if authenticated, returns 401 if not
  */
-export function withAuth<TBody = unknown, TQuery = unknown>(
+export function withAuth<TBody = unknown>(
   handler: (
-    req: ApiRequest<TBody, TQuery> & { userId: string },
+    req: ApiRequest<TBody> & { userId: string },
     res: VercelResponse,
   ) => Promise<void | VercelResponse>,
 ) {
@@ -103,7 +103,7 @@ export function withAuth<TBody = unknown, TQuery = unknown>(
     }
 
     // Add userId to request
-    const authReq = req as ApiRequest<TBody, TQuery> & { userId: string };
+    const authReq = req as ApiRequest<TBody> & { userId: string };
     authReq.userId = userId;
 
     return handler(authReq, res);
@@ -113,9 +113,9 @@ export function withAuth<TBody = unknown, TQuery = unknown>(
 /**
  * Optional authentication - adds userId if authenticated but doesn't require it
  */
-export function withOptionalAuth<TBody = unknown, TQuery = unknown>(
+export function withOptionalAuth<TBody = unknown>(
   handler: (
-    req: ApiRequest<TBody, TQuery> & { userId: string | null },
+    req: ApiRequest<TBody> & { userId: string | null },
     res: VercelResponse,
   ) => Promise<void | VercelResponse>,
 ) {
@@ -129,9 +129,6 @@ export function withOptionalAuth<TBody = unknown, TQuery = unknown>(
     // biome-ignore lint/suspicious/noExplicitAny: userId can be null for optional auth
     (req as any).userId = userId;
 
-    return handler(
-      req as ApiRequest<TBody, TQuery> & { userId: string | null },
-      res,
-    );
+    return handler(req as ApiRequest<TBody> & { userId: string | null }, res);
   };
 }

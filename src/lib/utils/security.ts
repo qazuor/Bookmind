@@ -7,7 +7,7 @@
 /**
  * Allowed URL protocols
  */
-const ALLOWED_PROTOCOLS = ["http:", "https:", "mailto:"];
+const ALLOWED_PROTOCOLS = ["http:", "https:"];
 
 /**
  * Dangerous URL patterns to block

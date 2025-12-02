@@ -92,6 +92,7 @@ describe("AI Services", () => {
     it("should generate summary with AI", async () => {
       mockCreateChatCompletion.mockResolvedValue({
         content: "This is a test summary about the article.",
+        model: "gpt-3.5-turbo",
         usage: { promptTokens: 50, completionTokens: 20, totalTokens: 70 },
       });
 
@@ -109,6 +110,7 @@ describe("AI Services", () => {
     it("should trim summary content", async () => {
       mockCreateChatCompletion.mockResolvedValue({
         content: "  Summary with whitespace  \n",
+        model: "gpt-3.5-turbo",
         usage: { promptTokens: 50, completionTokens: 10, totalTokens: 60 },
       });
 
@@ -141,6 +143,7 @@ describe("AI Services", () => {
       mockCreateChatCompletion.mockResolvedValue({
         content:
           '{"tags": ["javascript", "tutorial", "web"], "reasoning": "Based on content"}',
+        model: "gpt-3.5-turbo",
         usage: { promptTokens: 30, completionTokens: 15, totalTokens: 45 },
       });
 
@@ -157,6 +160,7 @@ describe("AI Services", () => {
     it("should handle non-JSON response gracefully", async () => {
       mockCreateChatCompletion.mockResolvedValue({
         content: "javascript, tutorial, web",
+        model: "gpt-3.5-turbo",
         usage: { promptTokens: 30, completionTokens: 10, totalTokens: 40 },
       });
 
@@ -173,6 +177,7 @@ describe("AI Services", () => {
     it("should limit tags to 5", async () => {
       mockCreateChatCompletion.mockResolvedValue({
         content: '{"tags": ["a", "b", "c", "d", "e", "f", "g"]}',
+        model: "gpt-3.5-turbo",
         usage: { promptTokens: 30, completionTokens: 20, totalTokens: 50 },
       });
 
@@ -187,6 +192,7 @@ describe("AI Services", () => {
     it("should lowercase all tags", async () => {
       mockCreateChatCompletion.mockResolvedValue({
         content: '{"tags": ["JavaScript", "REACT", "WebDev"]}',
+        model: "gpt-3.5-turbo",
         usage: { promptTokens: 30, completionTokens: 15, totalTokens: 45 },
       });
 
@@ -233,6 +239,7 @@ describe("AI Services", () => {
       mockCreateChatCompletion.mockResolvedValue({
         content:
           '{"category": "Technology", "confidence": 0.85, "reasoning": "Technical content"}',
+        model: "gpt-3.5-turbo",
         usage: { promptTokens: 40, completionTokens: 20, totalTokens: 60 },
       });
 
@@ -250,6 +257,7 @@ describe("AI Services", () => {
     it("should fallback to first category for invalid response", async () => {
       mockCreateChatCompletion.mockResolvedValue({
         content: "invalid response",
+        model: "gpt-3.5-turbo",
         usage: { promptTokens: 40, completionTokens: 5, totalTokens: 45 },
       });
 
@@ -266,6 +274,7 @@ describe("AI Services", () => {
     it("should clamp confidence between 0 and 1", async () => {
       mockCreateChatCompletion.mockResolvedValue({
         content: '{"category": "Tech", "confidence": 1.5}',
+        model: "gpt-3.5-turbo",
         usage: { promptTokens: 40, completionTokens: 10, totalTokens: 50 },
       });
 
@@ -315,6 +324,7 @@ describe("AI Services", () => {
           ],
           interpretation: "Looking for JavaScript resources",
         }),
+        model: "gpt-3.5-turbo",
         usage: { promptTokens: 100, completionTokens: 50, totalTokens: 150 },
       });
 
@@ -328,8 +338,8 @@ describe("AI Services", () => {
       });
 
       expect(result.results.length).toBe(2);
-      expect(result.results[0].id).toBe("1");
-      expect(result.results[0].score).toBe(0.9);
+      expect(result.results[0]?.id).toBe("1");
+      expect(result.results[0]?.score).toBe(0.9);
       expect(result.interpretation).toBe("Looking for JavaScript resources");
       expect(result.tokensUsed).toBe(150);
     });
@@ -343,6 +353,7 @@ describe("AI Services", () => {
             { id: "3", score: 0.5 },
           ],
         }),
+        model: "gpt-3.5-turbo",
         usage: { promptTokens: 100, completionTokens: 40, totalTokens: 140 },
       });
 
@@ -367,6 +378,7 @@ describe("AI Services", () => {
             { id: "999", score: 0.9 }, // Invalid ID
           ],
         }),
+        model: "gpt-3.5-turbo",
         usage: { promptTokens: 100, completionTokens: 30, totalTokens: 130 },
       });
 
@@ -376,7 +388,7 @@ describe("AI Services", () => {
       });
 
       expect(result.results.length).toBe(1);
-      expect(result.results[0].id).toBe("1");
+      expect(result.results[0]?.id).toBe("1");
     });
   });
 
@@ -386,14 +398,17 @@ describe("AI Services", () => {
       mockCreateChatCompletion
         .mockResolvedValueOnce({
           content: "Generated summary",
+          model: "gpt-3.5-turbo",
           usage: { promptTokens: 50, completionTokens: 20, totalTokens: 70 },
         })
         .mockResolvedValueOnce({
           content: '{"tags": ["tag1", "tag2"]}',
+          model: "gpt-3.5-turbo",
           usage: { promptTokens: 30, completionTokens: 15, totalTokens: 45 },
         })
         .mockResolvedValueOnce({
           content: '{"category": "Tech", "confidence": 0.8}',
+          model: "gpt-3.5-turbo",
           usage: { promptTokens: 40, completionTokens: 20, totalTokens: 60 },
         });
 
@@ -415,10 +430,12 @@ describe("AI Services", () => {
         .mockRejectedValueOnce(new Error("Summary failed"))
         .mockResolvedValueOnce({
           content: '{"tags": ["tag1"]}',
+          model: "gpt-3.5-turbo",
           usage: { promptTokens: 30, completionTokens: 10, totalTokens: 40 },
         })
         .mockResolvedValueOnce({
           content: '{"category": "Tech", "confidence": 0.9}',
+          model: "gpt-3.5-turbo",
           usage: { promptTokens: 40, completionTokens: 15, totalTokens: 55 },
         });
 
@@ -437,10 +454,12 @@ describe("AI Services", () => {
       mockCreateChatCompletion
         .mockResolvedValueOnce({
           content: "Summary",
+          model: "gpt-3.5-turbo",
           usage: { promptTokens: 50, completionTokens: 10, totalTokens: 60 },
         })
         .mockResolvedValueOnce({
           content: '{"tags": ["tag1"]}',
+          model: "gpt-3.5-turbo",
           usage: { promptTokens: 30, completionTokens: 10, totalTokens: 40 },
         });
 
@@ -459,14 +478,17 @@ describe("AI Services", () => {
       mockCreateChatCompletion
         .mockResolvedValueOnce({
           content: "Summary",
+          model: "gpt-3.5-turbo",
           usage: { promptTokens: 50, completionTokens: 10, totalTokens: 60 },
         })
         .mockResolvedValueOnce({
           content: '{"tags": ["tag1"]}',
+          model: "gpt-3.5-turbo",
           usage: { promptTokens: 30, completionTokens: 10, totalTokens: 40 },
         })
         .mockResolvedValueOnce({
           content: '{"category": "Tech", "confidence": 0.3}', // Below 0.5 threshold
+          model: "gpt-3.5-turbo",
           usage: { promptTokens: 40, completionTokens: 15, totalTokens: 55 },
         });
 
