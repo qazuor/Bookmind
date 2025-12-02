@@ -1,0 +1,19 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://bookmind.app/sitemap.xml
+
+# Disallow private routes
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /bookmarks
+Disallow: /collections
+Disallow: /categories
+Disallow: /tags
+Disallow: /archive
+Disallow: /settings
+Disallow: /profile
+Disallow: /export
+Disallow: /stats
