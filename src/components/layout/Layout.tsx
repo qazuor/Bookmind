@@ -19,10 +19,18 @@ export function Layout({ children }: LayoutProps) {
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-background">
+        {/* Skip link for keyboard navigation */}
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <Header />
         <div className="flex">
           <Sidebar />
-          <main className="flex-1 overflow-auto pb-20 md:pb-0">
+          <main
+            id="main-content"
+            className="flex-1 overflow-auto pb-20 md:pb-0"
+            aria-label="Main content"
+          >
             <div className="container mx-auto p-4 md:p-6">
               {children ?? <Outlet />}
             </div>
