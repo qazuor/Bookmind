@@ -8,6 +8,11 @@ export { ConfirmDialog, DeleteDialog } from "./ConfirmDialog";
 
 export { EmptyState } from "./EmptyState";
 export {
+  getHoneypotValues,
+  HoneypotFields,
+  useHoneypot,
+} from "./HoneypotField";
+export {
   LanguageSelector,
   type LanguageSelectorProps,
   LanguageToggle,
