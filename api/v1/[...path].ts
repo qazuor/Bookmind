@@ -29,8 +29,8 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
 // Import handlers from service modules
-// NOTE: Using relative paths because Vercel serverless doesn't support tsconfig path aliases
-import { db } from "../../src/lib/db";
+// NOTE: Using relative paths with explicit file extensions for Vercel ES modules compatibility
+import { db } from "../../src/lib/db/index.js";
 import {
   bookmarks,
   bookmarkTags,
@@ -40,7 +40,7 @@ import {
   tags,
   users,
   sessions,
-} from "../../src/lib/db/schema";
+} from "../../src/lib/db/schema.js";
 import { eq, and, desc, asc, sql, ilike, or, inArray } from "drizzle-orm";
 
 // =============================================================================
