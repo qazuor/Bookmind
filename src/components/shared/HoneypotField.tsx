@@ -150,6 +150,7 @@ export function useHoneypot() {
 
   return {
     honeypotValues,
+    // biome-ignore lint/style/useNamingConvention: HoneypotInputs is a React component, PascalCase is correct
     HoneypotInputs,
     timestamp,
     resetTimestamp: () => setTimestamp(Date.now()),

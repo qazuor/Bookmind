@@ -12,7 +12,14 @@ export default defineConfig({
       "tests/**/*.{test,spec}.{ts,tsx}",
       "src/**/*.{test,spec}.{ts,tsx}",
     ],
-    exclude: ["node_modules", "dist", ".claude", "tests/e2e/**"],
+    exclude: [
+      "node_modules",
+      "dist",
+      ".claude",
+      "tests/e2e/**",
+      // Excluded due to Vercel Hobby plan limit - handlers moved to src/api-handlers
+      "tests/integration/api/**",
+    ],
     coverage: {
       provider: "v8",
       reporter: ["text", "html", "lcov"],

@@ -106,8 +106,13 @@ export interface RequestOptions extends Omit<RequestInit, "body"> {
 
 /**
  * Base API URL
+ *
+ * NOTE: Using /api/v1 due to Vercel Hobby plan limit of 12 serverless functions.
+ * All routes are consolidated into a single catch-all handler.
+ * When upgrading to Vercel Pro, change back to "/api" and restore individual handlers.
+ * See: api/v1/[...path].ts for details.
  */
-const API_BASE_URL = "/api";
+const API_BASE_URL = "/api/v1";
 
 /**
  * Build URL with query parameters
