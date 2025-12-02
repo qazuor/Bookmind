@@ -28,6 +28,8 @@
  */
 
 import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import {
@@ -231,12 +233,116 @@ const bookmarkCollections = pgTable(
   ],
 );
 
+// Auth schemas (for Better Auth session verification)
+const accounts = pgTable(
+  "accounts",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    providerId: text("provider_id").notNull(),
+    accountId: text("account_id").notNull(),
+    accessToken: text("access_token"),
+    refreshToken: text("refresh_token"),
+    accessTokenExpiresAt: timestamp("access_token_expires_at", {
+      withTimezone: true,
+    }),
+    refreshTokenExpiresAt: timestamp("refresh_token_expires_at", {
+      withTimezone: true,
+    }),
+    scope: text("scope"),
+    idToken: text("id_token"),
+    password: text("password"),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    index("accounts_user_id_idx").on(table.userId),
+    index("accounts_provider_idx").on(table.providerId, table.accountId),
+  ],
+);
+
+const sessions = pgTable(
+  "sessions",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    token: text("token").notNull().unique(),
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+    ipAddress: text("ip_address"),
+    userAgent: text("user_agent"),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    index("sessions_user_id_idx").on(table.userId),
+    index("sessions_token_idx").on(table.token),
+  ],
+);
+
+const verificationTokens = pgTable(
+  "verification_tokens",
+  {
+    id: text("id").primaryKey(),
+    identifier: text("identifier").notNull(),
+    value: text("value").notNull().unique(),
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    index("verification_tokens_identifier_idx").on(table.identifier),
+    index("verification_tokens_value_idx").on(table.value),
+  ],
+);
+
 // =============================================================================
 // DATABASE CONNECTION
 // =============================================================================
 
 const databaseUrl = process.env.DATABASE_URL ?? "";
 const db = drizzle(neon(databaseUrl));
+
+// =============================================================================
+// BETTER AUTH INSTANCE (for session verification)
+// =============================================================================
+
+const auth = betterAuth({
+  secret: process.env.BETTER_AUTH_SECRET,
+  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:5173",
+  database: drizzleAdapter(db, {
+    provider: "pg",
+    schema: {
+      user: users,
+      account: accounts,
+      session: sessions,
+      verification: verificationTokens,
+    },
+  }),
+  session: {
+    expiresIn: 60 * 60 * 24 * 7,
+    updateAge: 60 * 60 * 24,
+    cookieCache: {
+      enabled: true,
+      maxAge: 60 * 5,
+    },
+  },
+});
 
 // =============================================================================
 // TYPES
@@ -289,10 +395,17 @@ function getPathParams(
   return params;
 }
 
-// Simple auth check - returns null for now (auth handled by frontend)
-async function getUserId(_req: VercelRequest): Promise<string | null> {
-  // TODO: Implement proper auth check using Better Auth session
-  return null;
+// Get user ID from Better Auth session
+async function getUserId(req: VercelRequest): Promise<string | null> {
+  try {
+    const session = await auth.api.getSession({
+      headers: req.headers as unknown as Headers,
+    });
+    return session?.user?.id ?? null;
+  } catch (error) {
+    console.error("[API] Session verification error:", error);
+    return null;
+  }
 }
 
 // =============================================================================
