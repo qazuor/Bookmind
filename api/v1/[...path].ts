@@ -15,33 +15,228 @@
  *
  * HOW TO REVERT:
  * 1. Delete this file (api/v1/[...path].ts)
- * 2. The original files in api/ will become individual serverless functions
+ * 2. Move files from src/api-handlers/ back to api/
  * 3. Update frontend API_URL from /api/v1 to /api
  *
  * TRADEOFFS OF THIS APPROACH:
  * - Slower cold starts (all code loads together)
  * - Less granular logs in Vercel dashboard
  * - Single point of failure for all API routes
+ * - Schema definitions are duplicated (inlined here for ES module compatibility)
  *
  * =============================================================================
  */
 
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-
-// Import handlers from service modules
-// NOTE: Using relative paths because Vercel serverless doesn't support tsconfig path aliases
-import { db } from "../../src/lib/db/index";
+import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
 import {
-  bookmarks,
-  bookmarkTags,
-  bookmarkCollections,
-  categories,
-  collections,
-  tags,
-  users,
-  sessions,
-} from "../../src/lib/db/schema";
-import { eq, and, desc, asc, sql, ilike, or, inArray } from "drizzle-orm";
+  boolean,
+  index,
+  jsonb,
+  pgTable,
+  primaryKey,
+  text,
+  timestamp,
+  uuid,
+} from "drizzle-orm/pg-core";
+import { eq, and, desc, asc, sql, ilike, or } from "drizzle-orm";
+
+// =============================================================================
+// INLINED SCHEMA DEFINITIONS
+// (Duplicated from src/lib/db/schemas/* for Vercel ES module compatibility)
+// =============================================================================
+
+const users = pgTable(
+  "users",
+  {
+    id: text("id").primaryKey(),
+    email: text("email").notNull().unique(),
+    emailVerified: boolean("email_verified").notNull().default(false),
+    name: text("name"),
+    image: text("image"),
+    username: text("username").unique(),
+    bio: text("bio"),
+    language: text("language").notNull().default("en"),
+    theme: text("theme").notNull().default("system"),
+    defaultVisibility: text("default_visibility").notNull().default("private"),
+    emailNotifications: boolean("email_notifications").notNull().default(true),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    index("users_email_idx").on(table.email),
+    index("users_username_idx").on(table.username),
+  ],
+);
+
+const categories = pgTable(
+  "categories",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    name: text("name").notNull(),
+    color: text("color").notNull().default("#6366f1"),
+    icon: text("icon"),
+    description: text("description"),
+    isDefault: boolean("is_default").notNull().default(false),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    index("categories_user_id_idx").on(table.userId),
+    index("categories_user_name_idx").on(table.userId, table.name),
+  ],
+);
+
+const collections = pgTable(
+  "collections",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    name: text("name").notNull(),
+    description: text("description"),
+    parentId: uuid("parent_id"),
+    isPublic: boolean("is_public").notNull().default(false),
+    shareToken: text("share_token").unique(),
+    shareExpiresAt: timestamp("share_expires_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    index("collections_user_id_idx").on(table.userId),
+    index("collections_parent_id_idx").on(table.parentId),
+    index("collections_share_token_idx").on(table.shareToken),
+  ],
+);
+
+const tags = pgTable(
+  "tags",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    name: text("name").notNull(),
+    color: text("color"),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    index("tags_user_id_idx").on(table.userId),
+    index("tags_user_name_idx").on(table.userId, table.name),
+  ],
+);
+
+const bookmarks = pgTable(
+  "bookmarks",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    url: text("url").notNull(),
+    title: text("title").notNull(),
+    description: text("description"),
+    notes: text("notes"),
+    favicon: text("favicon"),
+    ogImage: text("og_image"),
+    ogTitle: text("og_title"),
+    ogDescription: text("og_description"),
+    categoryId: uuid("category_id").references(() => categories.id, {
+      onDelete: "set null",
+    }),
+    isPublic: boolean("is_public").notNull().default(false),
+    isPinned: boolean("is_pinned").notNull().default(false),
+    isArchived: boolean("is_archived").notNull().default(false),
+    aiSummary: text("ai_summary"),
+    aiTags: jsonb("ai_tags").$type<string[]>(),
+    aiCategory: text("ai_category"),
+    aiProcessedAt: timestamp("ai_processed_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    index("bookmarks_user_id_idx").on(table.userId),
+    index("bookmarks_category_id_idx").on(table.categoryId),
+    index("bookmarks_user_created_idx").on(table.userId, table.createdAt),
+    index("bookmarks_user_public_idx").on(table.userId, table.isPublic),
+    index("bookmarks_user_archived_idx").on(table.userId, table.isArchived),
+    index("bookmarks_user_pinned_idx").on(table.userId, table.isPinned),
+    index("bookmarks_url_idx").on(table.url),
+  ],
+);
+
+const bookmarkTags = pgTable(
+  "bookmark_tags",
+  {
+    bookmarkId: uuid("bookmark_id")
+      .notNull()
+      .references(() => bookmarks.id, { onDelete: "cascade" }),
+    tagId: uuid("tag_id")
+      .notNull()
+      .references(() => tags.id, { onDelete: "cascade" }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    primaryKey({ columns: [table.bookmarkId, table.tagId] }),
+    index("bookmark_tags_bookmark_id_idx").on(table.bookmarkId),
+    index("bookmark_tags_tag_id_idx").on(table.tagId),
+  ],
+);
+
+const bookmarkCollections = pgTable(
+  "bookmark_collections",
+  {
+    bookmarkId: uuid("bookmark_id")
+      .notNull()
+      .references(() => bookmarks.id, { onDelete: "cascade" }),
+    collectionId: uuid("collection_id")
+      .notNull()
+      .references(() => collections.id, { onDelete: "cascade" }),
+    addedAt: timestamp("added_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    primaryKey({ columns: [table.bookmarkId, table.collectionId] }),
+    index("bookmark_collections_bookmark_id_idx").on(table.bookmarkId),
+    index("bookmark_collections_collection_id_idx").on(table.collectionId),
+  ],
+);
+
+// =============================================================================
+// DATABASE CONNECTION
+// =============================================================================
+
+const databaseUrl = process.env.DATABASE_URL ?? "";
+const db = drizzle(neon(databaseUrl));
 
 // =============================================================================
 // TYPES
@@ -94,15 +289,9 @@ function getPathParams(
   return params;
 }
 
-// Simple auth check - in production use proper auth middleware
-async function getUserId(req: VercelRequest): Promise<string | null> {
+// Simple auth check - returns null for now (auth handled by frontend)
+async function getUserId(_req: VercelRequest): Promise<string | null> {
   // TODO: Implement proper auth check using Better Auth session
-  // For now, check for session cookie or authorization header
-  const authHeader = req.headers.authorization;
-  if (authHeader?.startsWith("Bearer ")) {
-    // Validate token and return user ID
-    return null; // Placeholder
-  }
   return null;
 }
 
@@ -113,8 +302,6 @@ async function getUserId(req: VercelRequest): Promise<string | null> {
 const routes: Route[] = [];
 
 function addRoute(method: string, path: string, handler: RouteHandler): void {
-  // Convert path pattern to regex
-  // e.g., "/bookmarks/:id" -> /^\/bookmarks\/([^/]+)$/
   const paramNames: string[] = [];
   const regexPattern = path
     .replace(/:([^/]+)/g, (_, param) => {
@@ -223,7 +410,6 @@ addRoute("POST", "/bookmarks", async (req, res) => {
       })
       .returning();
 
-    // Add tags if provided
     if (body.tagIds?.length) {
       await db.insert(bookmarkTags).values(
         body.tagIds.map((tagId) => ({
@@ -233,7 +419,6 @@ addRoute("POST", "/bookmarks", async (req, res) => {
       );
     }
 
-    // Add to collections if provided
     if (body.collectionIds?.length) {
       await db.insert(bookmarkCollections).values(
         body.collectionIds.map((collectionId) => ({
@@ -871,7 +1056,6 @@ export default async function handler(
   // Find matching route
   for (const route of routes) {
     if (route.method === method && route.pattern.test(path)) {
-      // Extract params and attach to request
       const params = getPathParams(path, route.pattern, route.params);
       (req as any).params = params;
 
