@@ -170,15 +170,17 @@ export function CollectionForm({
             <div className="space-y-2">
               <Label>Parent Collection</Label>
               <Select
-                value={field.state.value ?? ""}
-                onValueChange={field.handleChange}
+                value={field.state.value || "__none__"}
+                onValueChange={(v) =>
+                  field.handleChange(v === "__none__" ? "" : v)
+                }
                 disabled={isLoading}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="None (root level)" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">None (root level)</SelectItem>
+                  <SelectItem value="__none__">None (root level)</SelectItem>
                   {availableParents.map((parent) => (
                     <SelectItem key={parent.id} value={parent.id}>
                       <span style={{ paddingLeft: `${parent.depth * 12}px` }}>

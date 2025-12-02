@@ -89,10 +89,11 @@ export function BookmarksPage() {
   );
 
   const handleCategoryChange = (value: string) => {
-    setCategoryId(value);
+    const actualValue = value === "__all__" ? "" : value;
+    setCategoryId(actualValue);
     const params = new URLSearchParams(searchParams);
-    if (value) {
-      params.set("category", value);
+    if (actualValue) {
+      params.set("category", actualValue);
     } else {
       params.delete("category");
     }
@@ -173,12 +174,15 @@ export function BookmarksPage() {
           className="flex-1"
         />
         <div className="flex items-center gap-2">
-          <Select value={categoryId} onValueChange={handleCategoryChange}>
+          <Select
+            value={categoryId || "__all__"}
+            onValueChange={handleCategoryChange}
+          >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="All categories" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All categories</SelectItem>
+              <SelectItem value="__all__">All categories</SelectItem>
               {categories.map((category) => (
                 <SelectItem key={category.id} value={category.id}>
                   <div className="flex items-center gap-2">
