@@ -71,7 +71,10 @@ export function BookmarkForm({
         title: value.title,
         description: value.description || undefined,
         notes: value.notes || undefined,
-        categoryId: value.categoryId || undefined,
+        categoryId:
+          value.categoryId && value.categoryId !== "__none__"
+            ? value.categoryId
+            : undefined,
         isPublic: value.isPublic,
         isFavorite: value.isFavorite,
         tagIds: value.tagIds.length > 0 ? value.tagIds : undefined,
@@ -210,7 +213,7 @@ export function BookmarkForm({
                 <SelectValue placeholder="Select a category" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">No category</SelectItem>
+                <SelectItem value="__none__">No category</SelectItem>
                 {categories.map((category) => (
                   <SelectItem key={category.id} value={category.id}>
                     <div className="flex items-center gap-2">
