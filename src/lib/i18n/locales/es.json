@@ -528,7 +528,19 @@
     "settingsSaved": "Configuración guardada",
     "profileUpdated": "Perfil actualizado",
     "exportReady": "Exportación lista para descargar",
-    "error": "Ocurrió un error"
+    "error": "Ocurrió un error",
+    "errors": {
+      "createBookmark": "Error al crear el marcador",
+      "updateBookmark": "Error al actualizar el marcador",
+      "deleteBookmark": "Error al eliminar el marcador",
+      "archiveBookmark": "Error al archivar el marcador",
+      "restoreBookmark": "Error al restaurar el marcador",
+      "updateCollection": "Error al actualizar la colección",
+      "deleteCollection": "Error al eliminar la colección",
+      "updateSharing": "Error al actualizar el compartido",
+      "exportBookmarks": "Error al exportar los marcadores",
+      "generic": "Algo salió mal. Por favor, inténtalo de nuevo."
+    }
   },
   "time": {
     "justNow": "Ahora mismo",

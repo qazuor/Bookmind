@@ -528,7 +528,19 @@
     "settingsSaved": "Settings saved",
     "profileUpdated": "Profile updated",
     "exportReady": "Export ready for download",
-    "error": "An error occurred"
+    "error": "An error occurred",
+    "errors": {
+      "createBookmark": "Failed to create bookmark",
+      "updateBookmark": "Failed to update bookmark",
+      "deleteBookmark": "Failed to delete bookmark",
+      "archiveBookmark": "Failed to archive bookmark",
+      "restoreBookmark": "Failed to restore bookmark",
+      "updateCollection": "Failed to update collection",
+      "deleteCollection": "Failed to delete collection",
+      "updateSharing": "Failed to update sharing",
+      "exportBookmarks": "Failed to export bookmarks",
+      "generic": "Something went wrong. Please try again."
+    }
   },
   "time": {
     "justNow": "Just now",
