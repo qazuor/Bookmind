@@ -5,6 +5,11 @@
  * For production (Vercel), use the Vercel adapter.
  */
 
+// Load environment variables first
+import { config } from "dotenv";
+
+config({ path: ".env.local" });
+
 import { serve } from "@hono/node-server";
 import { app } from "./app";
 
